@@ -18,6 +18,14 @@ public class User {
         this.conecao = new ConecaoDB("jdbc:mysql://localhost:3306/CPM", "21101995");
     }
 
+    public void adicionaUtilizador(String username,String password) throws SQLException{
+        this.conecao.insertQuery("Insert into users values(null,'" + username + "','" + password + "'");
+    }
+    
+    public void removeUtilizador(String username) throws SQLException{
+        this.conecao.insertQuery("DELETE FROM users where username='" + username + "'");
+    }
+    
     public ConecaoDB getConecao() {
         return conecao;
     }
