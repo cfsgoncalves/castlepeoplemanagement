@@ -5,16 +5,22 @@
  */
 package Viewer;
 
+import Controler.LoginControler;
+import Model.User;
+import java.sql.SQLException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author filipe
  */
 public class LoginUI extends javax.swing.JFrame {
-
+    private LoginControler loginControler;
     /**
      * Creates new form LoginUI1
      */
-    public LoginUI() {
+    public LoginUI() throws ClassNotFoundException, SQLException {
         initComponents();
     }
 
@@ -50,8 +56,6 @@ public class LoginUI extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        jPasswordField1.setText("jPasswordField1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,7 +101,19 @@ public class LoginUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            this.loginControler = new LoginControler(new User(),this);
+            this.loginControler.validarUtilizador(jTextField1.getText(),jPasswordField1.getPassword());
+        } catch (SQLException | ClassNotFoundException ex) {
+            //A conecao á base de dados falhou
+             System.out.println(ex);
+             JOptionPane.showMessageDialog(new JFrame(), "Erro: falha da coneção há base de dados", "Dialog",
+        JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            //Palavra pass e/ou utilizador errados
+             JOptionPane.showMessageDialog(new JFrame(),"Erro: Password e/ou username errados", "Dialog",
+        JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
