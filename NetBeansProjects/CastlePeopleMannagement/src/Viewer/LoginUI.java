@@ -6,6 +6,7 @@
 package Viewer;
 
 import Controler.LoginControler;
+import Controler.MainMenuControler;
 import Model.User;
 import java.sql.SQLException;
 import javax.swing.JFrame;
@@ -102,8 +103,13 @@ public class LoginUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            this.loginControler = new LoginControler(new User(),this);
+            User user = new User();
+            this.loginControler = new LoginControler(user,this);
             this.loginControler.validarUtilizador(jTextField1.getText(),jPasswordField1.getPassword());
+            MainMenuUI menuUI = new MainMenuUI();
+            this.setVisible(false);
+            menuUI.setVisible(true);
+            new MainMenuControler(menuUI,user);
         } catch (SQLException | ClassNotFoundException ex) {
             //A conecao á base de dados falhou
              System.out.println(ex);
