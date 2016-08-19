@@ -5,7 +5,9 @@
  */
 package Model;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 /**
  *
@@ -26,6 +28,28 @@ public class User {
         this.conecao.insertQuery("DELETE FROM users where username='" + username + "'");
     }
     
+    public HashMap listUsers() throws SQLException{
+        HashMap userList = new HashMap();
+        ResultSet resultado = this.conecao.searchInfo("Select * from users order by id_utilizador");
+        while(resultado.next()){
+            int id = resultado.getInt("id_utilizador");
+            String username = resultado.getString("username");
+            userList.put(id, username);
+        }
+        return userList;
+    }
+    
+    public boolean modifyPassword(String newPassword,String newPassword2,String oldPassword,int id) throws Exception{
+        boolean result = false;
+        if(!newPassword.equals(newPassword2)){
+            throw new Exception("Error: Diferent Passwords");
+        }else{
+            this.conecao.insertQuery("UPDATE users SET password='" + newPassword + "'");
+            result = true;
+        }
+        return result;
+    }
+    
     public ConecaoDB getConecao() {
         return conecao;
     }
@@ -33,5 +57,4 @@ public class User {
     public void setConecao(ConecaoDB conecao) {
         this.conecao = conecao;
     }
-    
 }
