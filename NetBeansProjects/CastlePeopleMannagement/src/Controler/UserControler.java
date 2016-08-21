@@ -6,7 +6,7 @@
 package Controler;
 
 import Model.User;
-import Viewer.UserUI;
+import javax.swing.JPanel;
 
 /**
  *
@@ -14,9 +14,9 @@ import Viewer.UserUI;
  */
 public class UserControler {
     private User user;
-    private UserUI userUI;
+    private JPanel userUI;
     
-    public UserControler(User user, UserUI userUI){
+    public UserControler(User user, JPanel userUI){
         this.user = user;
         this.userUI = userUI;
     }
@@ -29,11 +29,12 @@ public class UserControler {
         this.user = user;
     }
 
-    public UserUI getUserUI() {
+    public JPanel getUserUI() {
         return userUI;
     }
 
-    public void setUserUI(UserUI userUI) {
+    public void setUserUI(JPanel userUI) {
         this.userUI = userUI;
-    }    
+    }
+    
 }

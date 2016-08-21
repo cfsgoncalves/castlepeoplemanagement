@@ -51,12 +51,16 @@ public class LoginUI extends javax.swing.JFrame {
 
         jLabel2.setText("Password:");
 
+        jTextField1.setText("claudiofilipe21");
+
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jPasswordField1.setText("1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

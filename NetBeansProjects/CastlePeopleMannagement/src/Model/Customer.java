@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- *
+ * NOTA : ver atributos no SMemo e fazer bd
  * @author filipe
  */
 public class Customer {
@@ -27,8 +27,10 @@ public class Customer {
         this.gender = gender;
     }
     
-    public void addCustomer(String gender, String age) throws SQLException{
-        this.conecao.insertQuery("INSERT INTO customers VALUES(null,'" + gender + "','" + age+"'");
+    public void addCustomer(String gender, String age, int tipo, int excursion) throws SQLException{
+        this.conecao.insertQuery("INSERT INTO customers VALUES(null,'" + gender + "','" 
+                +age+"','"+ tipo +"','"+ excursion
+                + "'");
     }
     
     public void removeCustomer(int id) throws SQLException{
@@ -45,5 +47,4 @@ public class Customer {
         }
         return customerList;
     }
-    
 }
