@@ -6,7 +6,7 @@
 package Controler;
 
 import Model.Customer;
-import Viewer.CustomerUI;
+import javax.swing.JPanel;
 
 /**
  *
@@ -14,9 +14,9 @@ import Viewer.CustomerUI;
  */
 public class CustomerControler {
     private Customer customer;
-    private CustomerUI customerUI;
+    private JPanel customerUI;
 
-    public CustomerControler(Customer customer, CustomerUI customerUI) {
+    public CustomerControler(Customer customer, JPanel customerUI) {
         this.customer = customer;
         this.customerUI = customerUI;
     }
@@ -29,11 +29,11 @@ public class CustomerControler {
         this.customer = customer;
     }
 
-    public CustomerUI getCustomerUI() {
+    public JPanel getCustomerUI() {
         return customerUI;
     }
 
-    public void setCustomerUI(CustomerUI customerUI) {
+    public void setCustomerUI(JPanel customerUI) {
         this.customerUI = customerUI;
     }
     
