@@ -6,14 +6,18 @@
 package Viewer;
 
 import Controler.CustomerControler;
+import Controler.EmailControler;
 import Controler.SettingsControler;
 import Controler.UserControler;
 import Model.Customer;
+import Model.Email;
 import Model.Settings;
 import Model.User;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +27,7 @@ public class MainMenuUI extends javax.swing.JFrame {
     private UserControler userControler;
     private SettingsControler settingsControler;
     private CustomerControler costumerControler;
+    private EmailControler emailControler;
     /**
      * Creates new form MenuPrincipalUI
      */
@@ -331,6 +336,12 @@ public class MainMenuUI extends javax.swing.JFrame {
 
         jLabel19.setText("Usename");
         jPanel7.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 336, -1, -1));
+
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
         jPanel7.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 365, 200, -1));
 
         jLabel20.setText("Password");
@@ -338,78 +349,55 @@ public class MainMenuUI extends javax.swing.JFrame {
         jPanel7.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 433, 200, -1));
 
         jButton10.setText("Adicionar");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
         jPanel7.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 472, -1, -1));
 
         jLabel21.setText("Lista de Utilizadores");
-        jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 42, -1, -1));
+        jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, -1, -1));
 
         jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            //String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane3.setViewportView(jList2);
 
-        jPanel7.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 65, 305, 436));
+        jPanel7.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 305, 436));
 
         jButton11.setText("Remover");
-        jPanel7.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(577, 65, 80, -1));
+        jPanel7.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 90, -1));
 
         jPanel2.add(jPanel7, "card5");
 
+        jPanel8.setBackground(new java.awt.Color(254, 254, 254));
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel22.setText("Enviar Email");
+        jPanel8.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, -1, 26));
+        jPanel8.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 79, 574, -1));
 
         jLabel23.setText("Destino");
+        jPanel8.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 56, -1, -1));
 
         jLabel24.setText("Assunto");
+        jPanel8.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 124, -1, -1));
+        jPanel8.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 147, 574, -1));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane4.setViewportView(jTextArea1);
 
+        jPanel8.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 221, 574, 188));
+
         jLabel25.setText("Email");
+        jPanel8.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 198, -1, -1));
 
         jButton12.setText("Enviar");
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel25)
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel22)
-                        .addComponent(jLabel23)
-                        .addComponent(jTextField5)
-                        .addComponent(jLabel24)
-                        .addComponent(jTextField6)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE))
-                    .addComponent(jButton12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(83, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel24)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(jLabel25)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton12)
-                .addContainerGap(63, Short.MAX_VALUE))
-        );
+        jPanel8.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(506, 421, 80, -1));
 
         jPanel2.add(jPanel8, "card6");
 
@@ -431,11 +419,15 @@ public class MainMenuUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+       for(int i=0;i<this.jPanel2.getComponentCount();i++){
+                this.jPanel2.getComponent(i).setVisible(false);
+            }
+        this.jPanel8.setVisible(true);
+        this.emailControler = new EmailControler(new Email(),this.jPanel8);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -465,6 +457,23 @@ public class MainMenuUI extends javax.swing.JFrame {
             Logger.getLogger(MainMenuUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        String password = "";
+        for(int i=0;i<jPasswordField1.getPassword().length;i++){
+            password = password + jPasswordField1.getPassword()[i];
+        }
+        try {
+            this.userControler.getUser().adicionaUtilizador(jTextField4.getText(),password);
+            JOptionPane.showMessageDialog(new JFrame(), "Utilizador inserido com sucesso!", "Error", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(new JFrame(), "Não foi possivel registar o utilizador!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

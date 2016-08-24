@@ -21,7 +21,9 @@ public class User {
     }
 
     public void adicionaUtilizador(String username,String password) throws SQLException{
-        this.conecao.insertQuery("Insert into users values(null,'" + username + "','" + password + "'");
+        System.out.println(username + "  " + password);
+        String query = "INSERT INTO users VALUES(NULL,'" + username + "','" + password + "')";
+        this.conecao.insertQuery(query);
     }
     
     public void removeUtilizador(String username) throws SQLException{
