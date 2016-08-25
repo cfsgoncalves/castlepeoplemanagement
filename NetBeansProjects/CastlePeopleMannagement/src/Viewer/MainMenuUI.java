@@ -13,11 +13,16 @@ import Model.Customer;
 import Model.Email;
 import Model.Settings;
 import Model.User;
+import java.awt.Component;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -369,6 +374,11 @@ public class MainMenuUI extends javax.swing.JFrame {
         jPanel7.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 305, 436));
 
         jButton11.setText("Remover");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
         jPanel7.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 90, -1));
 
         jPanel2.add(jPanel7, "card5");
@@ -447,13 +457,27 @@ public class MainMenuUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        for(int i=0;i<this.jPanel2.getComponentCount();i++){
+        try {                                         
+            DefaultListModel listModel = new DefaultListModel();
+            for(int i=0;i<this.jPanel2.getComponentCount();i++){
                 this.jPanel2.getComponent(i).setVisible(false);
             }
-        this.jPanel7.setVisible(true);
-        try {
-            this.userControler = new UserControler(new User(),this.jPanel7);
-        } catch (ClassNotFoundException | SQLException ex) {
+            this.jPanel7.setVisible(true);
+            Component comp = this.jPanel7.getComponents()[8];
+            JScrollPane scrollPane =(JScrollPane) comp;
+            //JList list = (JList) scrollPane;
+            HashMap hash = this.userControler.getUser().listUsers();
+            for(int i = 0;i<hash.size();i++){
+                System.out.println();
+                listModel.addElement(hash.get(i).toString());
+            }
+            //list.setModel(listModel);
+            try {
+                this.userControler = new UserControler(new User(),this.jPanel7);
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(MainMenuUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(MainMenuUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -474,6 +498,10 @@ public class MainMenuUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(new JFrame(), "Não foi possivel registar o utilizador!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
