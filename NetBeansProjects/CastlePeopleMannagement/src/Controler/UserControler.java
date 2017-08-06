@@ -6,6 +6,8 @@
 package Controler;
 
 import Model.User;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 
 /**
@@ -13,20 +15,20 @@ import javax.swing.JPanel;
  * @author filipe
  */
 public class UserControler {
-    private User user;
     private JPanel userUI;
+    private List<User> listOfUsers;
     
     public UserControler(User user, JPanel userUI){
-        this.user = user;
+        this.listOfUsers = new ArrayList<User>();
         this.userUI = userUI;
     }
 
-    public User getUser() {
-        return user;
+    public List<User> getUserList(){
+        return this.listOfUsers;
     }
-
-    public void setUser(User user) {
-        this.user = user;
+    
+    public void setUserList(List<User> userList){
+        this.listOfUsers = userList;
     }
 
     public JPanel getUserUI() {

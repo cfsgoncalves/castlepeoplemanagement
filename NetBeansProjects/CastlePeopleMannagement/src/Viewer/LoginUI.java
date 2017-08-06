@@ -6,8 +6,6 @@
 package Viewer;
 
 import Controler.LoginControler;
-import Controler.MainMenuControler;
-import Model.User;
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author filipe
  */
 public class LoginUI extends javax.swing.JFrame {
-    private LoginControler loginControler;
+    
     /**
      * Creates new form LoginUI1
      */
@@ -107,18 +105,7 @@ public class LoginUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            User user = new User();
-            this.loginControler = new LoginControler(user,this);
-            this.loginControler.validarUtilizador(jTextField1.getText(),jPasswordField1.getPassword());
-            MainMenuUI menuUI = new MainMenuUI();
-            this.setVisible(false);
-            menuUI.setVisible(true);
-            new MainMenuControler(menuUI,user);
-        } catch (SQLException | ClassNotFoundException ex) {
-            //A conecao á base de dados falhou
-             System.out.println(ex);
-             JOptionPane.showMessageDialog(new JFrame(), "Erro: falha da coneção há base de dados", "Dialog",
-        JOptionPane.ERROR_MESSAGE);
+            
         } catch (Exception ex) {
             //Palavra pass e/ou utilizador errados
              JOptionPane.showMessageDialog(new JFrame(),"Erro: Password e/ou username errados", "Dialog",

@@ -14,49 +14,27 @@ import java.util.HashMap;
  * @author filipe
  */
 public class User {
-    private ConecaoDB conecao;
+   private String userName;
+   private String password;
+   
+   public User(String name, String password){
+       this.userName = name;
+       this.password = password;
+   }
 
-    public User() throws ClassNotFoundException, SQLException{
-        this.conecao = new ConecaoDB("jdbc:mysql://localhost:3306/CPM", "21101995");
-    }
-
-    public void adicionaUtilizador(String username,String password) throws SQLException{
-        System.out.println(username + "  " + password);
-        String query = "INSERT INTO users VALUES(NULL,'" + username + "','" + password + "')";
-        this.conecao.insertQuery(query);
-    }
-    
-    public void removeUtilizador(String username) throws SQLException{
-        this.conecao.insertQuery("DELETE FROM users where username='" + username + "'");
-    }
-    
-    public HashMap listUsers() throws SQLException{
-        HashMap userList = new HashMap();
-        ResultSet resultado = this.conecao.searchInfo("Select * from users order by id_utilizador");
-        while(resultado.next()){
-            int id = resultado.getInt("id_utilizador");
-            String username = resultado.getString("username");
-            userList.put(id, username);
-        }
-        return userList;
-    }
-    
-    public boolean modifyPassword(String newPassword,String newPassword2,String oldPassword,int id) throws Exception{
-        boolean result = false;
-        if(!newPassword.equals(newPassword2)){
-            throw new Exception("Error: Diferent Passwords");
-        }else{
-            this.conecao.insertQuery("UPDATE users SET password='" + newPassword + "'");
-            result = true;
-        }
-        return result;
-    }
-    
-    public ConecaoDB getConecao() {
-        return conecao;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setConecao(ConecaoDB conecao) {
-        this.conecao = conecao;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

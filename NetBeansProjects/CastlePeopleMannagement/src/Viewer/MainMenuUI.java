@@ -7,11 +7,11 @@ package Viewer;
 
 import Controler.CustomerControler;
 import Controler.EmailControler;
-import Controler.SettingsControler;
+//import Controler.SettingsControler;
 import Controler.UserControler;
 import Model.Customer;
 import Model.Email;
-import Model.Settings;
+//import Model.Settings;
 import Model.User;
 import java.awt.Component;
 import java.sql.SQLException;
@@ -30,7 +30,7 @@ import javax.swing.JScrollPane;
  */
 public class MainMenuUI extends javax.swing.JFrame {
     private UserControler userControler;
-    private SettingsControler settingsControler;
+   // private SettingsControler settingsControler;
     private CustomerControler costumerControler;
     private EmailControler emailControler;
     /**
@@ -449,37 +449,10 @@ public class MainMenuUI extends javax.swing.JFrame {
                 this.jPanel2.getComponent(i).setVisible(false);
             }
         this.jPanel6.setVisible(true);
-        try {
-            this.settingsControler = new SettingsControler(new Settings(),jPanel6);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(MainMenuUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {                                         
-            DefaultListModel listModel = new DefaultListModel();
-            for(int i=0;i<this.jPanel2.getComponentCount();i++){
-                this.jPanel2.getComponent(i).setVisible(false);
-            }
-            this.jPanel7.setVisible(true);
-            Component comp = this.jPanel7.getComponents()[8];
-            JScrollPane scrollPane =(JScrollPane) comp;
-            //JList list = (JList) scrollPane;
-            HashMap hash = this.userControler.getUser().listUsers();
-            for(int i = 0;i<hash.size();i++){
-                System.out.println();
-                listModel.addElement(hash.get(i).toString());
-            }
-            //list.setModel(listModel);
-            try {
-                this.userControler = new UserControler(new User(),this.jPanel7);
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(MainMenuUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(MainMenuUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
@@ -490,12 +463,6 @@ public class MainMenuUI extends javax.swing.JFrame {
         String password = "";
         for(int i=0;i<jPasswordField1.getPassword().length;i++){
             password = password + jPasswordField1.getPassword()[i];
-        }
-        try {
-            this.userControler.getUser().adicionaUtilizador(jTextField4.getText(),password);
-            JOptionPane.showMessageDialog(new JFrame(), "Utilizador inserido com sucesso!", "Error", JOptionPane.INFORMATION_MESSAGE);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(new JFrame(), "Não foi possivel registar o utilizador!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
