@@ -5,46 +5,42 @@
  */
 package Model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 /**
  * NOTA : ver atributos no SMemo e fazer bd
  * @author filipe
  */
 public class Customer {
-    private ConecaoDB conecao;
-    private int age;
+    private String age;
     private String gender;
+    private boolean excursion;
     
-    public Customer() throws ClassNotFoundException, SQLException{
-        this.conecao = new ConecaoDB("jdbc:mysql://localhost:3306/CPM", "21101995");
-    }
-    
-    public Customer(int age, String gender){
+    public Customer(String age, String gender,boolean excursion){
         this.age = age;
         this.gender = gender;
+        this.excursion = excursion;
     }
-    
-    public void addCustomer(String gender, String age, int tipo, int excursion) throws SQLException{
-        this.conecao.insertQuery("INSERT INTO customers VALUES(null,'" + gender + "','" 
-                +age+"','"+ tipo +"','"+ excursion
-                + "'");
+
+    public String getAge() {
+        return age;
     }
-    
-    public void removeCustomer(int id) throws SQLException{
-        this.conecao.insertQuery("DELETE FROM customers WHERE id_costumer='" + id +"'");
+
+    public void setAge(String age) {
+        this.age = age;
     }
-    
-    public ArrayList<Customer> listCustomers() throws SQLException {
-        ArrayList<Customer> customerList = new ArrayList();
-        ResultSet result = this.conecao.searchInfo("SELECT * FROM customers");
-        while(result.next()){
-           int age = result.getInt("age");
-           String gender = result.getString("gender");
-           customerList.add(new Customer(age,gender));
-        }
-        return customerList;
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public boolean isExcursion() {
+        return excursion;
+    }
+
+    public void setExcursion(boolean excursion) {
+        this.excursion = excursion;
     }
 }

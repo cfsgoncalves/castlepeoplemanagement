@@ -9,7 +9,10 @@ import Controler.CustomerControler;
 import Controler.EmailControler;
 //import Controler.SettingsControler;
 import Controler.UserControler;
+import Model.Customer;
 import Model.Email;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 //import Model.Settings;
 
 
@@ -406,7 +409,10 @@ public class MainMenuUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+         for(int i=0;i<this.jPanel2.getComponentCount();i++){
+                this.jPanel2.getComponent(i).setVisible(false);
+            }
+        this.jPanel4.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
@@ -422,7 +428,34 @@ public class MainMenuUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        String gender = "";
+        String age = "";
+        boolean excursion = false;
+        if(this.jCheckBox3.isSelected() && this.jCheckBox4.isSelected()){
+           JOptionPane.showMessageDialog(new JFrame(),"Error: Can't select the two genders", "Dialog",
+        JOptionPane.ERROR_MESSAGE);
+        }else if(this.jCheckBox3.isSelected()){
+            gender = "M";
+        }else if(this.jCheckBox4.isSelected()){
+            gender = "F";
+        }
+        if((this.jCheckBox1.isSelected() && this.jCheckBox2.isSelected()) || 
+                (this.jCheckBox1.isSelected() && this.jCheckBox5.isSelected()) ||
+                (this.jCheckBox2.isSelected() && this.jCheckBox5.isSelected())){
+            JOptionPane.showMessageDialog(new JFrame(),"Error: Can't select only one age type", "Dialog",
+        JOptionPane.ERROR_MESSAGE);
+        }else if(this.jCheckBox1.isSelected()){
+            age = "C";
+        }else if(this.jCheckBox2.isSelected()){
+            age = "S";
+        }else if(this.jCheckBox5.isSelected()){
+            age = "A";
+        }
+        if(this.jCheckBox6.isSelected()){
+            excursion =  true;
+        }
+        Customer customer = new Customer(age,gender,excursion);
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -433,7 +466,10 @@ public class MainMenuUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            
+         for(int i=0;i<this.jPanel2.getComponentCount();i++){
+                this.jPanel2.getComponent(i).setVisible(false);
+            }
+        this.jPanel7.setVisible(true);   
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
