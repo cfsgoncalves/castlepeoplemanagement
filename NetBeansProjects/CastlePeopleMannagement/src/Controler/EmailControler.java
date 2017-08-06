@@ -20,4 +20,21 @@ public class EmailControler {
         this.email = email;
         this.jpanel = jpanel;
     }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+
+    public JPanel getJpanel() {
+        return jpanel;
+    }
+
+    public void setJpanel(JPanel jpanel) {
+        this.jpanel = jpanel;
+    }
+    
 }
