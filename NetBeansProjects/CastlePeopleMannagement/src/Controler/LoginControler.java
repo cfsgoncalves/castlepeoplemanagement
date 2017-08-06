@@ -5,9 +5,8 @@
  */
 package Controler;
 
-import Model.User;
 import Viewer.LoginUI;
-import java.sql.SQLException;
+import Viewer.MainMenuUI;
 
 /**
  *
@@ -19,25 +18,13 @@ public class LoginControler {
     
     public LoginControler(UserControler userControler,LoginUI login){
         this.loginUI =login;
+        this.loginUI.setUserControler(userControler);
         this.userControler = userControler;
     }
     
     /*
      * Permite validar o utilizador
      */
-    public boolean validarUtilizador(String user, char[] password) throws Exception{
-        String pass = "";
-        for(char letra : password){
-            pass = pass + letra;
-        }
-        for(int i=0;i<userControler.getUserList().size();i++){
-            if(userControler.getUserList().get(i).getUserName().equals(user) && 
-                    userControler.getUserList().get(i).getPassword().equals(pass)){
-                return true;
-            }
-        }
-        throw new Exception("Wrong login/User not found!");
-    }
     
     public LoginUI getLoginUI() {
         return loginUI;

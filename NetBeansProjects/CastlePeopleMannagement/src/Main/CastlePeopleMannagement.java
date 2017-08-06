@@ -5,13 +5,12 @@
  */
 package Main;
 
+import Controler.LoginControler;
+import Controler.UserControler;
+import Model.User;
 import Viewer.LoginUI;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -30,20 +29,14 @@ public class CastlePeopleMannagement {
                     break;
                 }
             }
-            LoginUI loginUI = new LoginUI();
-            loginUI.setResizable(false);
-            loginUI.setVisible(true);
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Erro: base de dados");
-        } catch (SQLException ex) {
-            System.out.println("Erro: query");
-        } catch (InstantiationException ex) {
-            System.out.println("Erro: Nimbus not found");
-        } catch (IllegalAccessException ex) {
-            System.out.println("Erro: Nimbus not found");
-        } catch (UnsupportedLookAndFeelException ex) {
-            System.out.println("Erro: Nimbus not found");
+            
+            User admin = new User("admin","admin");
+            UserControler userControler = new UserControler();
+            userControler.addUser(admin);
+            LoginControler login = new LoginControler(userControler,new LoginUI(userControler));
+            login.getLoginUI().setVisible(true);
+        }catch (Exception ex) {
+            System.out.println("Error initializing the system");
         }
     }
-    
 }

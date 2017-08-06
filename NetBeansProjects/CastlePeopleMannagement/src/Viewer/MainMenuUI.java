@@ -9,20 +9,9 @@ import Controler.CustomerControler;
 import Controler.EmailControler;
 //import Controler.SettingsControler;
 import Controler.UserControler;
-import Model.Customer;
 import Model.Email;
 //import Model.Settings;
-import Model.User;
-import java.awt.Component;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
+
 
 /**
  *
@@ -417,15 +406,7 @@ public class MainMenuUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            for(int i=0;i<this.jPanel2.getComponentCount();i++){
-                this.jPanel2.getComponent(i).setVisible(false);
-            }
-            this.jPanel4.setVisible(true);
-            this.costumerControler = new CustomerControler(new Customer(),this.jPanel4);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(MainMenuUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed

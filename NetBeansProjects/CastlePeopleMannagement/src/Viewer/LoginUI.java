@@ -5,8 +5,7 @@
  */
 package Viewer;
 
-import Controler.LoginControler;
-import java.sql.SQLException;
+import Controler.UserControler;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -15,13 +14,23 @@ import javax.swing.JOptionPane;
  * @author filipe
  */
 public class LoginUI extends javax.swing.JFrame {
-    
+    private UserControler userControler;
     /**
      * Creates new form LoginUI1
      */
-    public LoginUI() throws ClassNotFoundException, SQLException {
+    public LoginUI(UserControler controler){
         initComponents();
+        this.userControler = controler;
     }
+
+    public UserControler getUserControler() {
+        return userControler;
+    }
+
+    public void setUserControler(UserControler userControler) {
+        this.userControler = userControler;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,7 +114,7 @@ public class LoginUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            
+            userControler.validarUtilizador(jTextField1.getText(), jPasswordField1.getPassword(),this);
         } catch (Exception ex) {
             //Palavra pass e/ou utilizador errados
              JOptionPane.showMessageDialog(new JFrame(),"Erro: Password e/ou username errados", "Dialog",
