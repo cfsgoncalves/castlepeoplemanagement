@@ -13,6 +13,7 @@ import Model.Customer;
 import Model.Email;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 //import Model.Settings;
 
 
@@ -25,11 +26,17 @@ public class MainMenuUI extends javax.swing.JFrame {
    // private SettingsControler settingsControler;
     private CustomerControler costumerControler;
     private EmailControler emailControler;
+    private DefaultTableModel model;
     /**
      * Creates new form MenuPrincipalUI
      */
     public MainMenuUI() {
         initComponents();
+        this.jTable1.setModel(new DefaultTableModel());
+        model = (DefaultTableModel) this.jTable1.getModel();
+        model.addColumn("Gender");
+        model.addColumn("Age");
+        model.addColumn("Excursion");
     }
 
     /**
@@ -261,9 +268,19 @@ public class MainMenuUI extends javax.swing.JFrame {
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 35, 438, 378));
 
         jButton6.setText("Apagar Ultimo Cliente");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 419, -1, 43));
 
         jButton7.setText("Apagar Cliente");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 419, 162, 43));
 
         jTabbedPane1.addTab("Adicionar Utilizador", jPanel3);
@@ -427,6 +444,7 @@ public class MainMenuUI extends javax.swing.JFrame {
         this.emailControler = new EmailControler(new Email(),this.jPanel8);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    int i = 0;
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         String gender = "";
         String age = "";
@@ -435,9 +453,9 @@ public class MainMenuUI extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(new JFrame(),"Error: Can't select the two genders", "Dialog",
         JOptionPane.ERROR_MESSAGE);
         }else if(this.jCheckBox3.isSelected()){
-            gender = "M";
+            gender = "Masculine";
         }else if(this.jCheckBox4.isSelected()){
-            gender = "F";
+            gender = "Feminine";
         }
         if((this.jCheckBox1.isSelected() && this.jCheckBox2.isSelected()) || 
                 (this.jCheckBox1.isSelected() && this.jCheckBox5.isSelected()) ||
@@ -445,17 +463,19 @@ public class MainMenuUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(new JFrame(),"Error: Can't select only one age type", "Dialog",
         JOptionPane.ERROR_MESSAGE);
         }else if(this.jCheckBox1.isSelected()){
-            age = "C";
+            age = "Child";
         }else if(this.jCheckBox2.isSelected()){
-            age = "S";
+            age = "Student";
         }else if(this.jCheckBox5.isSelected()){
-            age = "A";
+            age = "Adult";
         }
         if(this.jCheckBox6.isSelected()){
             excursion =  true;
         }
         Customer customer = new Customer(age,gender,excursion);
-        
+        String string[] = {customer.getGender(), customer.getAge(), customer.isExcursion() + ""};
+        model.addRow(string);
+        i++;
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -486,6 +506,15 @@ public class MainMenuUI extends javax.swing.JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        int lastElementIndex = this.jTable1.getModel().getRowCount() - 1;
+        model.removeRow(lastElementIndex);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        model.removeRow(jTable1.getSelectedRow());
+    }//GEN-LAST:event_jButton7ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
