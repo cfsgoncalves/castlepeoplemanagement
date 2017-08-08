@@ -13,6 +13,8 @@ import Controler.UserControler;
 import Model.Customer;
 import Model.Email;
 import Model.Settings;
+import Model.User;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,17 +27,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MainMenuUI extends javax.swing.JFrame {
     private UserControler userControler;
-   // private SettingsControler settingsControler;
     private CustomerControler costumerControler;
     private EmailControler emailControler;
-    private DefaultTableModel model;
-    private SettingsController settings;
+    private final DefaultTableModel model;
+    private DefaultListModel listmodel;
+    private final SettingsController settings;
     /**
      * Creates new form MenuPrincipalUI
      */
     public MainMenuUI() {
         initComponents();
-        this.jTable1.setModel(new DefaultTableModel());
+        this.jList2.setModel(new DefaultListModel());
+        listmodel = (DefaultListModel) this.jList2.getModel();
         model = (DefaultTableModel) this.jTable1.getModel();
         model.addColumn("Gender");
         model.addColumn("Age");
@@ -44,7 +47,6 @@ public class MainMenuUI extends javax.swing.JFrame {
         this.jTextField1.setText(settings.getSettings().getStudentPrice() + "");
         this.jTextField2.setText(settings.getSettings().getChildPrice() + "");
         this.jTextField3.setText(settings.getSettings().getAdultPrice() + "");
-        
     }
 
     /**
@@ -361,7 +363,7 @@ public class MainMenuUI extends javax.swing.JFrame {
         jLabel18.setText("Adicionar Utilizador");
         jPanel7.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 301, -1, -1));
 
-        jLabel19.setText("Usename");
+        jLabel19.setText("Username");
         jPanel7.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 336, -1, -1));
 
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
@@ -520,10 +522,22 @@ public class MainMenuUI extends javax.swing.JFrame {
         for(int i=0;i<jPasswordField1.getPassword().length;i++){
             password = password + jPasswordField1.getPassword()[i];
         }
+        if(this.jTextField4.getText().equals("") || password.equals("")){
+            JOptionPane.showMessageDialog(new JFrame(),"Please fill the empty fields!", "Dialog",
+        JOptionPane.ERROR_MESSAGE);
+        }else{
+            User user = new User(this.jTextField4.getText(),password);
+            JOptionPane.showMessageDialog(new JFrame(),"User added with sucess!", "Dialog",
+        JOptionPane.INFORMATION_MESSAGE);
+            this.listmodel.addElement(user.getUserName());
+            this.jTextField4.setText("");
+            this.jPasswordField1.setText("");
+            
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+        listmodel.remove(this.jList2.getSelectedIndex());
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed

@@ -116,6 +116,7 @@ public class LoginUI extends javax.swing.JFrame {
         try {
             userControler.validarUtilizador(jTextField1.getText(), jPasswordField1.getPassword(),this);
         } catch (Exception ex) {
+            System.out.println(ex);
             //Palavra pass e/ou utilizador errados
              JOptionPane.showMessageDialog(new JFrame(),"Erro: Password e/ou username errados", "Dialog",
         JOptionPane.ERROR_MESSAGE);
