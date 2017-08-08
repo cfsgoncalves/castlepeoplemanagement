@@ -7,10 +7,12 @@ package Viewer;
 
 import Controler.CustomerControler;
 import Controler.EmailControler;
+import Controler.SettingsController;
 //import Controler.SettingsControler;
 import Controler.UserControler;
 import Model.Customer;
 import Model.Email;
+import Model.Settings;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +29,7 @@ public class MainMenuUI extends javax.swing.JFrame {
     private CustomerControler costumerControler;
     private EmailControler emailControler;
     private DefaultTableModel model;
+    private SettingsController settings;
     /**
      * Creates new form MenuPrincipalUI
      */
@@ -37,6 +40,11 @@ public class MainMenuUI extends javax.swing.JFrame {
         model.addColumn("Gender");
         model.addColumn("Age");
         model.addColumn("Excursion");
+        this.settings =  new SettingsController(this); 
+        this.jTextField1.setText(settings.getSettings().getStudentPrice() + "");
+        this.jTextField2.setText(settings.getSettings().getChildPrice() + "");
+        this.jTextField3.setText(settings.getSettings().getAdultPrice() + "");
+        
     }
 
     /**
@@ -283,7 +291,7 @@ public class MainMenuUI extends javax.swing.JFrame {
         });
         jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 419, 162, 43));
 
-        jTabbedPane1.addTab("Adicionar Utilizador", jPanel3);
+        jTabbedPane1.addTab("Adicionar Cliente", jPanel3);
 
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jTabbedPane1.addTab("Listar Utilizador", jPanel5);
@@ -323,6 +331,11 @@ public class MainMenuUI extends javax.swing.JFrame {
         jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 378, -1, -1));
 
         jButton9.setText("Confirmar Alterações");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
         jPanel6.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 418, 201, 62));
 
         jLabel16.setText("Ultimos acessos");
@@ -446,12 +459,15 @@ public class MainMenuUI extends javax.swing.JFrame {
 
     int i = 0;
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        boolean genderException = false;
+        boolean ageException = false;
         String gender = "";
         String age = "";
         boolean excursion = false;
         if(this.jCheckBox3.isSelected() && this.jCheckBox4.isSelected()){
            JOptionPane.showMessageDialog(new JFrame(),"Error: Can't select the two genders", "Dialog",
         JOptionPane.ERROR_MESSAGE);
+           genderException = true;
         }else if(this.jCheckBox3.isSelected()){
             gender = "Masculine";
         }else if(this.jCheckBox4.isSelected()){
@@ -462,6 +478,7 @@ public class MainMenuUI extends javax.swing.JFrame {
                 (this.jCheckBox2.isSelected() && this.jCheckBox5.isSelected())){
             JOptionPane.showMessageDialog(new JFrame(),"Error: Can't select only one age type", "Dialog",
         JOptionPane.ERROR_MESSAGE);
+            ageException = true;
         }else if(this.jCheckBox1.isSelected()){
             age = "Child";
         }else if(this.jCheckBox2.isSelected()){
@@ -472,10 +489,12 @@ public class MainMenuUI extends javax.swing.JFrame {
         if(this.jCheckBox6.isSelected()){
             excursion =  true;
         }
-        Customer customer = new Customer(age,gender,excursion);
-        String string[] = {customer.getGender(), customer.getAge(), customer.isExcursion() + ""};
-        model.addRow(string);
-        i++;
+        if(!genderException && !ageException){
+            Customer customer = new Customer(age,gender,excursion);
+            String string[] = {customer.getGender(), customer.getAge(), customer.isExcursion() + ""};
+            model.addRow(string);
+            i++;
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -515,6 +534,14 @@ public class MainMenuUI extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         model.removeRow(jTable1.getSelectedRow());
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        Settings.studentPrice = Float.parseFloat(this.jTextField1.getText());
+        Settings.childPrice = Float.parseFloat(this.jTextField2.getText());
+        Settings.adultPrice = Float.parseFloat(this.jTextField3.getText());
+        JOptionPane.showMessageDialog(new JFrame(),"Settings changed with exit!", "Dialog",
+        JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jButton9ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

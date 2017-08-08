@@ -179,8 +179,8 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Adicionar Utilizador">
-                        <Property name="tabTitle" type="java.lang.String" value="Adicionar Utilizador"/>
+                      <JTabbedPaneConstraints tabName="Adicionar Cliente">
+                        <Property name="tabTitle" type="java.lang.String" value="Adicionar Cliente"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -513,6 +513,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Confirmar Altera&#xe7;&#xf5;es"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="12" y="418" width="201" height="62"/>
