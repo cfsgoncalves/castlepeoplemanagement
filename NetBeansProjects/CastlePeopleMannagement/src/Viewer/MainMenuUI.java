@@ -13,6 +13,10 @@ import Model.Customer;
 import Model.PDFCreator;
 import Model.Settings;
 import Model.User;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -500,6 +504,11 @@ public class MainMenuUI extends javax.swing.JFrame {
                 "", JOptionPane.YES_NO_OPTION);
             if(secondWarning == JOptionPane.YES_OPTION){
                 PDFCreator a = new PDFCreator();
+                try {
+                    a.createPDF(new ArrayList<Customer>());
+                } catch (IOException ex) {
+                    Logger.getLogger(MainMenuUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_jButton8ActionPerformed
