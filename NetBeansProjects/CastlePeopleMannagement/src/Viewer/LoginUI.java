@@ -58,7 +58,12 @@ public class LoginUI extends javax.swing.JFrame {
 
         jLabel2.setText("Password:");
 
-        jTextField1.setText("claudiofilipe21");
+        jTextField1.setText("admin");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -67,7 +72,7 @@ public class LoginUI extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.setText("1");
+        jPasswordField1.setText("admin");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -122,6 +127,10 @@ public class LoginUI extends javax.swing.JFrame {
         JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     
 
