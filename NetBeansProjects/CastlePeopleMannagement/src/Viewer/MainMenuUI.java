@@ -87,6 +87,11 @@ public class MainMenuUI extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jCheckBox7 = new javax.swing.JCheckBox();
+        jLabel22 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel23 = new javax.swing.JLabel();
+        jCheckBox8 = new javax.swing.JCheckBox();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -197,7 +202,7 @@ public class MainMenuUI extends javax.swing.JFrame {
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, -1, -1));
 
         jLabel5.setText("Género");
-        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 35, -1, -1));
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         jCheckBox3.setText("Masculino");
         jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
@@ -205,29 +210,29 @@ public class MainMenuUI extends javax.swing.JFrame {
                 jCheckBox3ActionPerformed(evt);
             }
         });
-        jPanel3.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 58, -1, -1));
+        jPanel3.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         jCheckBox4.setText("Feminino");
-        jPanel3.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 88, -1, -1));
+        jPanel3.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 130, -1, -1));
 
         jLabel3.setText("Idade");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 142, -1, -1));
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         jCheckBox1.setText("Criança");
-        jPanel3.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 165, -1, -1));
+        jPanel3.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         jCheckBox2.setText("Estudante");
-        jPanel3.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 195, -1, -1));
+        jPanel3.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
 
         jCheckBox5.setText("Adulto");
-        jPanel3.add(jCheckBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 225, -1, -1));
+        jPanel3.add(jCheckBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 80, -1));
 
         jLabel6.setText("Excorsão");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 261, -1, -1));
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
 
         jCheckBox6.setText("Sim");
-        jPanel3.add(jCheckBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 284, -1, -1));
+        jPanel3.add(jCheckBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, -1, -1));
 
         jButton5.setText("Adicionar Cliente");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -235,7 +240,7 @@ public class MainMenuUI extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 326, -1, 87));
+        jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 373, -1, 40));
 
         jLabel7.setText("Lista Clientes Registados - Diarios");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 12, -1, -1));
@@ -267,6 +272,36 @@ public class MainMenuUI extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(377, 419, 162, 43));
+
+        jCheckBox7.setText(">65 anos");
+        jCheckBox7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox7ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jCheckBox7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
+
+        jLabel22.setText("Nacionalidade");
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alemanha", "Inglaterra", "Espanha", "França", "Outro" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 190, -1));
+
+        jLabel23.setText("Povoa de Lanhoso");
+        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, -1));
+
+        jCheckBox8.setText("Sim");
+        jCheckBox8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox8ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jCheckBox8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, -1));
 
         jTabbedPane1.addTab("Adicionar Cliente", jPanel3);
 
@@ -513,6 +548,18 @@ public class MainMenuUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void jCheckBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox7ActionPerformed
+
+    private void jCheckBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox8ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -531,6 +578,9 @@ public class MainMenuUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JCheckBox jCheckBox6;
+    private javax.swing.JCheckBox jCheckBox7;
+    private javax.swing.JCheckBox jCheckBox8;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -545,6 +595,8 @@ public class MainMenuUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
