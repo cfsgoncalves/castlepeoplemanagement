@@ -57,6 +57,16 @@ public class PDFCreator {
       contentStream.newLineAtOffset(150, 720);
       String nacionality = "Nacionalidade";
       contentStream.showText(nacionality);
+      contentStream.endText();
+      contentStream.beginText();
+      contentStream.newLineAtOffset(260, 720);
+      String excursion = "Excursão";
+      contentStream.showText(excursion);
+      contentStream.endText();
+      contentStream.beginText();
+      contentStream.newLineAtOffset(340, 720);
+      String pvl = "É da povoa de Lanhoso?";
+      contentStream.showText(pvl);
       //Ending the content stream
       contentStream.endText();
       //Closing the content stream
