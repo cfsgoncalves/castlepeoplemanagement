@@ -36,5 +36,4 @@ public class PDFController {
     public void setMain(MainMenuUI main) {
         this.main = main;
     }
-    
 }

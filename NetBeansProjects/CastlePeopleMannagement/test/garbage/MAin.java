@@ -5,8 +5,11 @@
  */
 package garbage;
 
+import Model.PDFCreator;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import org.apache.pdfbox.pdmodel.PDPage;
 
 /**
  *
@@ -14,9 +17,11 @@ import java.time.format.DateTimeFormatter;
  */
 public class MAin {
     
-    public static void main(String [] args){
+    public static void main(String [] args) throws IOException{
        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-LocalDateTime now = LocalDateTime.now();
-System.out.println(dtf.format(now)); //2016/11/16 12:08:43
+       LocalDateTime now = LocalDateTime.now();
+       System.out.println(dtf.format(now)); //2016/11/16 12:08:43
+       PDFCreator a =  new PDFCreator();
+       a.addPage(new PDPage(),dtf.format(now));
     }
 }

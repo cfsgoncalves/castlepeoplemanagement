@@ -539,11 +539,7 @@ public class MainMenuUI extends javax.swing.JFrame {
                 "", JOptionPane.YES_NO_OPTION);
             if(secondWarning == JOptionPane.YES_OPTION){
                 PDFCreator a = new PDFCreator();
-                try {
-                    a.createPDF(new ArrayList<Customer>());
-                } catch (IOException ex) {
-                    Logger.getLogger(MainMenuUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
             }
         }
     }//GEN-LAST:event_jButton8ActionPerformed

@@ -4,53 +4,65 @@
  * and open the template in the editor.
  */
 package Model;
-import com.qoppa.pdfWriter.PDFDocument;
-import com.qoppa.pdfWriter.PDFGraphics;
-import com.qoppa.pdfWriter.PDFPage;
-import java.awt.Graphics2D;
-import java.awt.print.PageFormat;
+
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 /**
  *
  * @author claudio
  */
 public class PDFCreator {
-    PDFDocument pdfDoc;
+    PDDocument document;
     
     public PDFCreator(){
-        // Create a document and a page in default Locale format
-        pdfDoc = new PDFDocument();
+        document = new PDDocument();  
     }
     
-    public void createPDF(ArrayList<Customer> customer) throws IOException{
-            PDFPage newPage = pdfDoc.createPage(new PageFormat());
-            //Generating date 
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDateTime now = LocalDateTime.now();
-            System.out.println(dtf.format(now));
-            String dateNotFormated = dtf.format(now);
-            String split[] = dateNotFormated.split("/");
-            String finalDate = split[0] + "-" + split[1] + "-" + split[2];
-            // Draw to the page
-            Graphics2D g2d = newPage.createGraphics();
-            g2d.setFont (PDFGraphics.HELVETICA.deriveFont(24f));
-            g2d.drawString("Castelo da Povoa de Lanhoso - Pessoas", 100, 100);
-            g2d.drawString("Sexo", 70, 150);
-            g2d.drawString("Nacionalidade",140, 150);
-            g2d.drawString("Género", 320, 150);
-            g2d.drawString("Excursão", 420, 150);
-            for(Customer a : customer){
-                
-            }
-            //g2d.drawString("claudio", 100, 150);
-            //g2d.drawString("filipe", 100, 180);
-            // Add the page to the document and save it
-            pdfDoc.addPage(newPage);
-            pdfDoc.saveDocument("Pdfs/clientes-" + finalDate +".pdf");
-    }
-    
+    public void addPage(PDPage page,String date) throws IOException{
+      PDImageXObject pdImage = PDImageXObject.createFromFile("/home/claudio/NetBeansProjects/"
+              + "NewFolder/CastleMannagement/NetBeansProjects/CastlePeopleMannagement"
+              + "/src/Images/brasao.jpg", document);
+      document.addPage(page);
+      PDPageContentStream contentStream = new PDPageContentStream(document, document.getPage(0));
+      contentStream.drawImage(pdImage,560,740,50,50);
+      //Begin the Content stream 
+      contentStream.beginText();
+      //Setting the font to the Content stream  
+      
+      contentStream.setFont(PDType1Font.TIMES_ROMAN, 18);
+      //Setting the position for the line 
+      contentStream.newLineAtOffset(25, 760);
+      String text = "Contagem de clientes da data : " + date;
+      //Adding text in the form of string 
+      contentStream.showText(text);
+      contentStream.endText();
+      //Adding the titles
+      contentStream.beginText();
+      contentStream.setFont(PDType1Font.TIMES_ROMAN, 16);
+      contentStream.newLineAtOffset(25,720);
+      String age = "Idade";
+      contentStream.showText(age);
+      contentStream.endText();
+      contentStream.beginText();
+      contentStream.newLineAtOffset(80, 720);
+      String gender = "Género";
+      contentStream.showText(gender);
+      contentStream.endText();
+      contentStream.beginText();
+      contentStream.newLineAtOffset(150, 720);
+      String nacionality = "Nacionalidade";
+      contentStream.showText(nacionality);
+      //Ending the content stream
+      contentStream.endText();
+      //Closing the content stream
+      contentStream.close();
+      System.out.println("PDF created");
+      document.save("Pdfs/my_doc.pdf");
+      document.close();
+    }   
 }
