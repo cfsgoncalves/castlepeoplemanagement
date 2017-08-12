@@ -45,6 +45,8 @@ public class MainMenuUI extends javax.swing.JFrame {
         model.addColumn("Gender");
         model.addColumn("Age");
         model.addColumn("Excursion");
+        model.addColumn("Nacionlaity");
+        model.addColumn("Povoa de Lanhoso");
         this.settings =  new SettingsController(this); 
         this.jTextField1.setText(settings.getSettings().getStudentPrice() + "");
         this.jTextField2.setText(settings.getSettings().getChildPrice() + "");
@@ -92,7 +94,6 @@ public class MainMenuUI extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel23 = new javax.swing.JLabel();
         jCheckBox8 = new javax.swing.JCheckBox();
-        jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -174,7 +175,7 @@ public class MainMenuUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 317, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 314, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -305,9 +306,6 @@ public class MainMenuUI extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Adicionar Cliente", jPanel3);
 
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jTabbedPane1.addTab("Listar Utilizador", jPanel5);
-
         jPanel4.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 667, 513));
 
         jPanel2.add(jPanel4, "card3");
@@ -429,50 +427,7 @@ public class MainMenuUI extends javax.swing.JFrame {
         this.jPanel4.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
-
     int i = 0;
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        boolean genderException = false;
-        boolean ageException = false;
-        String gender = "";
-        String age = "";
-        boolean excursion = false;
-        if(this.jCheckBox3.isSelected() && this.jCheckBox4.isSelected()){
-           JOptionPane.showMessageDialog(new JFrame(),"Error: Can't select the two genders", "Dialog",
-        JOptionPane.ERROR_MESSAGE);
-           genderException = true;
-        }else if(this.jCheckBox3.isSelected()){
-            gender = "Masculine";
-        }else if(this.jCheckBox4.isSelected()){
-            gender = "Feminine";
-        }
-        if((this.jCheckBox1.isSelected() && this.jCheckBox2.isSelected()) || 
-                (this.jCheckBox1.isSelected() && this.jCheckBox5.isSelected()) ||
-                (this.jCheckBox2.isSelected() && this.jCheckBox5.isSelected())){
-            JOptionPane.showMessageDialog(new JFrame(),"Error: Can't select only one age type", "Dialog",
-        JOptionPane.ERROR_MESSAGE);
-            ageException = true;
-        }else if(this.jCheckBox1.isSelected()){
-            age = "Child";
-        }else if(this.jCheckBox2.isSelected()){
-            age = "Student";
-        }else if(this.jCheckBox5.isSelected()){
-            age = "Adult";
-        }
-        if(this.jCheckBox6.isSelected()){
-            excursion =  true;
-        }
-        if(!genderException && !ageException){
-            Customer customer = new Customer(age,gender,excursion);
-            String string[] = {customer.getGender(), customer.getAge(), customer.isExcursion() + ""};
-            model.addRow(string);
-            i++;
-        }
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         for(int i=0;i<this.jPanel2.getComponentCount();i++){
                 this.jPanel2.getComponent(i).setVisible(false);
@@ -514,20 +469,11 @@ public class MainMenuUI extends javax.swing.JFrame {
         listmodel.remove(this.jList2.getSelectedIndex());
     }//GEN-LAST:event_jButton11ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        int lastElementIndex = this.jTable1.getModel().getRowCount() - 1;
-        model.removeRow(lastElementIndex);
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        model.removeRow(jTable1.getSelectedRow());
-    }//GEN-LAST:event_jButton7ActionPerformed
-
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         Settings.studentPrice = Float.parseFloat(this.jTextField1.getText());
         Settings.childPrice = Float.parseFloat(this.jTextField2.getText());
         Settings.adultPrice = Float.parseFloat(this.jTextField3.getText());
-        JOptionPane.showMessageDialog(new JFrame(),"Settings changed with exit!", "Dialog",
+        JOptionPane.showMessageDialog(new JFrame(),"Settings changed with success!", "Dialog",
         JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -544,10 +490,6 @@ public class MainMenuUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
-    private void jCheckBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox7ActionPerformed
-
     private void jCheckBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox8ActionPerformed
@@ -555,6 +497,83 @@ public class MainMenuUI extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jCheckBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox7ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        if(this.jTable1.getSelectedRow() != -1){
+            model.removeRow(jTable1.getSelectedRow());
+        }else{
+            JOptionPane.showMessageDialog(new JFrame(),"Error: Please select a customer to be deleted!", "Dialog",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        int lastElementIndex = this.jTable1.getModel().getRowCount() - 1;
+        model.removeRow(lastElementIndex);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        boolean genderException = false;
+        boolean ageException = false;
+        String gender = "";
+        String age = "";
+        boolean pvl = false;
+        String nacionality = this.jComboBox1.getSelectedItem().toString();
+        boolean excursion = false;
+        if(this.jCheckBox3.isSelected() && this.jCheckBox4.isSelected()){
+            JOptionPane.showMessageDialog(new JFrame(),"Error: Can't select the two genders", "Dialog",
+                JOptionPane.ERROR_MESSAGE);
+            genderException = true;
+        }else if(this.jCheckBox3.isSelected()){
+            gender = "Masculine";
+        }else if(this.jCheckBox4.isSelected()){
+            gender = "Feminine";
+        }
+
+        if(this.jCheckBox1.isSelected()){
+            age = "Child";
+        }else if(this.jCheckBox2.isSelected()){
+            age = "Student";
+        }else if(this.jCheckBox5.isSelected()){
+            age = "Adult";
+        }else if(this.jCheckBox7.isSelected()){
+            age = "Aged";
+        }
+        if((this.jCheckBox1.isSelected() && this.jCheckBox2.isSelected()) ||
+            (this.jCheckBox1.isSelected() && this.jCheckBox5.isSelected()) ||
+            (this.jCheckBox1.isSelected() && this.jCheckBox7.isSelected()) ||
+            (this.jCheckBox2.isSelected() && this.jCheckBox5.isSelected()) ||
+            (this.jCheckBox2.isSelected() && this.jCheckBox7.isSelected()) ||
+            (this.jCheckBox5.isSelected() && this.jCheckBox7.isSelected())){
+            JOptionPane.showMessageDialog(new JFrame(),"Error: Can't select only one age type", "Dialog",
+                JOptionPane.ERROR_MESSAGE);
+            ageException = true;
+        }
+        if(this.jCheckBox6.isSelected()){
+            excursion =  true;
+        }
+        if(this.jCheckBox8.isSelected()){
+            pvl =  true;
+        }
+        if(!genderException && !ageException && !age.equals("") && !gender.equals("")){
+            Customer customer = new Customer(age,gender,excursion,nacionality,pvl);
+            String string[] = {customer.getGender(), customer.getAge(),
+                customer.isExcursion() + "",customer.getNacionality(),customer.isPvl() + ""};
+            model.addRow(string);
+            i++;
+        }else{
+            JOptionPane.showMessageDialog(new JFrame(),"Error: Please insert valid options to add a customer", "Dialog",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -606,7 +625,6 @@ public class MainMenuUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPasswordField jPasswordField1;

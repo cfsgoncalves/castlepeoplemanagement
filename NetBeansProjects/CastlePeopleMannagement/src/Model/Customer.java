@@ -13,11 +13,15 @@ public class Customer {
     private String age;
     private String gender;
     private boolean excursion;
+    private String nacionality;
+    private boolean pvl;
     
-    public Customer(String age, String gender,boolean excursion){
+    public Customer(String age, String gender,boolean excursion,String nacionality,boolean pvl){
         this.age = age;
         this.gender = gender;
         this.excursion = excursion;
+        this.nacionality = nacionality;
+        this.pvl = pvl;
     }
 
     public String getAge() {
@@ -42,5 +46,21 @@ public class Customer {
 
     public void setExcursion(boolean excursion) {
         this.excursion = excursion;
+    }
+
+    public String getNacionality() {
+        return nacionality;
+    }
+
+    public void setNacionality(String nacionality) {
+        this.nacionality = nacionality;
+    }
+
+    public boolean isPvl() {
+        return pvl;
+    }
+
+    public void setPvl(boolean pvl) {
+        this.pvl = pvl;
     }
 }
