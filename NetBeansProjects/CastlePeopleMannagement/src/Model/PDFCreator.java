@@ -33,7 +33,6 @@ public class PDFCreator {
       //Begin the Content stream 
       contentStream.beginText();
       //Setting the font to the Content stream  
-      
       contentStream.setFont(PDType1Font.TIMES_ROMAN, 18);
       //Setting the position for the line 
       contentStream.newLineAtOffset(25, 760);
@@ -71,8 +70,10 @@ public class PDFCreator {
       contentStream.endText();
       //Closing the content stream
       contentStream.close();
+      String [] split = date.split("/");
+      String data = split[0] + "-" + split[1] + "-" + split[2];
       System.out.println("PDF created");
-      document.save("Pdfs/my_doc.pdf");
+      document.save("Pdfs/" + data + ".pdf");
       document.close();
     }   
 }
