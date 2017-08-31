@@ -13,6 +13,7 @@ public class Settings {
     public static float studentPrice = 0;
     public static float adultPrice = 0;
     public static float childPrice = 0;
+    public static float agedPrice = 0;
 
     public float getStudentPrice() {
         return studentPrice;
@@ -38,5 +39,12 @@ public class Settings {
         this.childPrice = childPrice;
     }
 
+    public static float getAgedPrice() {
+        return agedPrice;
+    }
+
+    public static void setAgedPrice(float agedPrice) {
+        Settings.agedPrice = agedPrice;
+    }
    
 }

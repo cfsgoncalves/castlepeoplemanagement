@@ -113,6 +113,9 @@ public class MainMenuUI extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        jLabel24 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -320,28 +323,28 @@ public class MainMenuUI extends javax.swing.JFrame {
         jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, -1, -1));
 
         jLabel9.setText("Preços por pessoa");
-        jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 248, -1, -1));
+        jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
         jLabel10.setText("Estudantes");
-        jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 288, -1, -1));
-        jPanel6.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 283, 58, -1));
+        jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
+        jPanel6.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, 58, -1));
 
         jLabel11.setText("Euros");
-        jPanel6.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 288, -1, -1));
+        jPanel6.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, -1, -1));
 
         jLabel12.setText("Adultos");
-        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 378, -1, -1));
+        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
 
         jLabel13.setText("Crianças");
-        jPanel6.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 333, -1, -1));
-        jPanel6.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 328, 58, -1));
-        jPanel6.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 373, 58, -1));
+        jPanel6.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
+        jPanel6.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 58, -1));
+        jPanel6.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 58, -1));
 
         jLabel14.setText("Euros");
-        jPanel6.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 333, -1, -1));
+        jPanel6.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, -1, -1));
 
         jLabel15.setText("Euros");
-        jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 378, -1, -1));
+        jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 380, -1, -1));
 
         jButton9.setText("Confirmar Alterações");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -362,6 +365,13 @@ public class MainMenuUI extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jList1);
 
         jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 68, 381, 412));
+
+        jLabel24.setText(">65 Anos");
+        jPanel6.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+        jPanel6.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 58, -1));
+
+        jLabel25.setText("Euros");
+        jPanel6.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, -1, -1));
 
         jPanel2.add(jPanel6, "card4");
 
@@ -474,8 +484,9 @@ public class MainMenuUI extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         Settings.studentPrice = Float.parseFloat(this.jTextField1.getText());
-        Settings.childPrice = Float.parseFloat(this.jTextField2.getText());
+        Settings.childPrice = Float.parseFloat(this.jTextField5.getText());
         Settings.adultPrice = Float.parseFloat(this.jTextField3.getText());
+        Settings.agedPrice = Float.parseFloat(this.jTextField2.getText());
         JOptionPane.showMessageDialog(new JFrame(),"Settings changed with success!", "Dialog",
         JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton9ActionPerformed
@@ -491,7 +502,7 @@ public class MainMenuUI extends javax.swing.JFrame {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 LocalDateTime now = LocalDateTime.now();
                 try {
-                    a.addPage(dtf.format(now),this.costumerControler.getCustomerList());
+                    a.createDocument(dtf.format(now),this.costumerControler.getCustomerList());
                 } catch (IOException ex) {
                     Logger.getLogger(MainMenuUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -623,6 +634,8 @@ public class MainMenuUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -648,5 +661,6 @@ public class MainMenuUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }
