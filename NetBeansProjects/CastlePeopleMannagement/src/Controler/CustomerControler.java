@@ -6,6 +6,8 @@
 package Controler;
 
 import Model.Customer;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 
 /**
@@ -13,22 +15,26 @@ import javax.swing.JPanel;
  * @author filipe
  */
 public class CustomerControler {
-    private Customer customer;
     private JPanel customerUI;
+    private List<Customer> customerList; 
 
-    public CustomerControler(Customer customer, JPanel customerUI) {
-        this.customer = customer;
+    public CustomerControler(JPanel customerUI) {
+        this.customerList = new ArrayList<Customer>();
         this.customerUI = customerUI;
     }
     
-    public Customer getCustomer() {
-        return customer;
+    public void addCustomer(Customer customer){
+        this.customerList.add(customer);
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public List<Customer> getCustomerList() {
+        return customerList;
     }
 
+    public void setCustomerList(List<Customer> customerList) {
+        this.customerList = customerList;
+    }
+    
     public JPanel getCustomerUI() {
         return customerUI;
     }

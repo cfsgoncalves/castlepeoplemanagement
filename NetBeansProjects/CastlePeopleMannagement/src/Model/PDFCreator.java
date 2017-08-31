@@ -6,6 +6,8 @@
 package Model;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -23,12 +25,45 @@ public class PDFCreator {
         document = new PDDocument();  
     }
     
-    public void addPage(PDPage page,String date) throws IOException{
+    public void addPage(String date,List<Customer> list) throws IOException{
+      boolean swap = true;
+      int iterator = 0;
+      int pageNumber = 0;
+      int counter = -1;
+      int max = 35;
+      ArrayList<Customer> customerList = (ArrayList<Customer>) list; 
+      String [] split = date.split("/");
+      String data = split[0] + "-" + split[1] + "-" + split[2];
+      if(list.size() < 35){
+            max = list.size();
+      }
+      //Iterating over a list
+      while(iterator < list.size() - 1){
+        pageNumber = 700;
+        counter++;
+        PDPage page = new PDPage();
+        document.addPage(page);
+        PDPageContentStream contentStream = new PDPageContentStream(document, document.getPage(counter));
+        beginPage(contentStream,date);
+        if((list.size() - iterator) < 35){
+            max = list.size() - iterator;
+        }
+        for(int i=0;i<max;i++){
+            addCustomers(contentStream,pageNumber,customerList.get(iterator));
+            iterator++;
+            pageNumber = pageNumber - 20;
+        }
+        contentStream.close();
+      }
+      document.save("Pdfs/" + data + ".pdf");
+      document.close();
+      System.out.println("PDF Created");
+    } 
+    
+    public void beginPage(PDPageContentStream contentStream, String date) throws IOException{
       PDImageXObject pdImage = PDImageXObject.createFromFile("/home/claudio/NetBeansProjects/"
               + "NewFolder/CastleMannagement/NetBeansProjects/CastlePeopleMannagement"
               + "/src/Images/brasao.jpg", document);
-      document.addPage(page);
-      PDPageContentStream contentStream = new PDPageContentStream(document, document.getPage(0));
       contentStream.drawImage(pdImage,560,740,50,50);
       //Begin the Content stream 
       contentStream.beginText();
@@ -68,12 +103,35 @@ public class PDFCreator {
       contentStream.showText(pvl);
       //Ending the content stream
       contentStream.endText();
-      //Closing the content stream
-      contentStream.close();
-      String [] split = date.split("/");
-      String data = split[0] + "-" + split[1] + "-" + split[2];
-      System.out.println("PDF created");
-      document.save("Pdfs/" + data + ".pdf");
-      document.close();
-    }   
+    }
+    
+    public void addCustomers(PDPageContentStream contentStream,int iterator,Customer a) throws IOException{
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.TIMES_ROMAN, 16);
+            contentStream.newLineAtOffset(25,iterator);
+            String age = a.getAge() ;
+            contentStream.showText(age);
+            contentStream.endText();
+            contentStream.beginText();
+            contentStream.newLineAtOffset(80,iterator);
+            String gender = a.getGender();
+            contentStream.showText(gender);
+            contentStream.endText();
+            contentStream.beginText();
+            contentStream.newLineAtOffset(150,iterator);
+            String nacionality = a.getNacionality();
+            contentStream.showText(nacionality);
+            contentStream.endText();
+            contentStream.beginText();
+            contentStream.newLineAtOffset(260,iterator);
+            String excursion = a.isExcursion() + "";
+            contentStream.showText(excursion);
+            contentStream.endText();
+            contentStream.beginText();
+            contentStream.newLineAtOffset(340,iterator);
+            String pvl = a.isPvl() + "";
+            contentStream.showText(pvl);
+            //Ending the content stream
+            contentStream.endText();
+    }
 }

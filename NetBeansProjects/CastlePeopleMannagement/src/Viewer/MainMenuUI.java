@@ -41,6 +41,7 @@ public class MainMenuUI extends javax.swing.JFrame {
      */
     public MainMenuUI() {
         initComponents();
+        this.costumerControler = new CustomerControler(this.jPanel3);
         this.jList2.setModel(new DefaultListModel());
         listmodel = (DefaultListModel) this.jList2.getModel();
         model = (DefaultTableModel) this.jTable1.getModel();
@@ -489,9 +490,8 @@ public class MainMenuUI extends javax.swing.JFrame {
                 PDFCreator a = new PDFCreator();
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 LocalDateTime now = LocalDateTime.now();
-                PDPage page = new PDPage();
                 try {
-                    a.addPage(page, dtf.format(now));
+                    a.addPage(dtf.format(now),this.costumerControler.getCustomerList());
                 } catch (IOException ex) {
                     Logger.getLogger(MainMenuUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -574,6 +574,7 @@ public class MainMenuUI extends javax.swing.JFrame {
             String string[] = {customer.getGender(), customer.getAge(),
                 customer.isExcursion() + "",customer.getNacionality(),customer.isPvl() + ""};
             model.addRow(string);
+            this.costumerControler.addCustomer(customer);
             i++;
         }else{
             JOptionPane.showMessageDialog(new JFrame(),"Error: Please insert valid options to add a customer", "Dialog",

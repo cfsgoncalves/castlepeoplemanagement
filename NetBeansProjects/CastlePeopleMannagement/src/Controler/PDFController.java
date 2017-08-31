@@ -5,8 +5,10 @@
  */
 package Controler;
 
+import Model.Customer;
 import Model.PDFCreator;
 import Viewer.MainMenuUI;
+import java.util.List;
 
 /**
  *
@@ -16,7 +18,7 @@ public class PDFController {
     PDFCreator pdfCreator;
     MainMenuUI main;
     
-    public PDFController(PDFCreator pdf,MainMenuUI main){
+    public PDFController(PDFCreator pdf,MainMenuUI main,List<Customer> list){
         this.pdfCreator = pdf;
         this.main = main;
     }
