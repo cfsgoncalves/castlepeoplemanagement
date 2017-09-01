@@ -55,16 +55,20 @@ public class PDFCreator {
             max = list.size() - iterator;
         }
         for(int i=0;i<max;i++){
-            addCustomers(contentStream,pageNumber,customerList.get(iterator));
             if(customerList.get(iterator).getAge().equals("Aged")){
                 aged++;
+                customerList.get(iterator).setAge("Idoso");
             }else if(customerList.get(iterator).getAge().equals("Student")){
                 student++;
+                customerList.get(iterator).setAge("Estudante");
             }else if(customerList.get(iterator).getAge().equals("Adult")){
                 adult++;
+                customerList.get(iterator).setAge("Adulto");
             }else{
                 child++;
+                customerList.get(iterator).setAge("Criança");
             }
+            addCustomers(contentStream,pageNumber,customerList.get(iterator));
             iterator++;
             pageNumber = pageNumber - 20;
         }
@@ -99,27 +103,27 @@ public class PDFCreator {
       //Adding the titles
       contentStream.beginText();
       contentStream.setFont(PDType1Font.TIMES_ROMAN, 16);
-      contentStream.newLineAtOffset(25,720);
-      String age = "Idade";
+      contentStream.newLineAtOffset(25, 720);
+      String age = "Tipo";
       contentStream.showText(age);
       contentStream.endText();
       contentStream.beginText();
-      contentStream.newLineAtOffset(80, 720);
+      contentStream.newLineAtOffset(95, 720);
       String gender = "Género";
       contentStream.showText(gender);
       contentStream.endText();
       contentStream.beginText();
-      contentStream.newLineAtOffset(150, 720);
+      contentStream.newLineAtOffset(170, 720);
       String nacionality = "Nacionalidade";
       contentStream.showText(nacionality);
       contentStream.endText();
       contentStream.beginText();
-      contentStream.newLineAtOffset(260, 720);
+      contentStream.newLineAtOffset(280, 720);
       String excursion = "Excursão";
       contentStream.showText(excursion);
       contentStream.endText();
       contentStream.beginText();
-      contentStream.newLineAtOffset(340, 720);
+      contentStream.newLineAtOffset(360, 720);
       String pvl = "É da povoa de Lanhoso?";
       contentStream.showText(pvl);
       //Ending the content stream
@@ -134,24 +138,32 @@ public class PDFCreator {
             contentStream.showText(age);
             contentStream.endText();
             contentStream.beginText();
-            contentStream.newLineAtOffset(80,iterator);
+            contentStream.newLineAtOffset(95,iterator);
             String gender = a.getGender();
             contentStream.showText(gender);
             contentStream.endText();
             contentStream.beginText();
-            contentStream.newLineAtOffset(150,iterator);
+            contentStream.newLineAtOffset(170,iterator);
             String nacionality = a.getNacionality();
             contentStream.showText(nacionality);
             contentStream.endText();
             contentStream.beginText();
-            contentStream.newLineAtOffset(260,iterator);
+            contentStream.newLineAtOffset(280,iterator);
             String excursion = a.isExcursion() + "";
-            contentStream.showText(excursion);
+            if(excursion.equals("true")){
+                contentStream.showText("Sim");
+            }else{
+                contentStream.showText("Não");
+            }
             contentStream.endText();
             contentStream.beginText();
-            contentStream.newLineAtOffset(340,iterator);
+            contentStream.newLineAtOffset(360,iterator);
             String pvl = a.isPvl() + "";
-            contentStream.showText(pvl);
+            if(pvl.equals("true")){
+                contentStream.showText("Sim");
+            }else{
+                contentStream.showText("Não");
+            }
             //Ending the content stream
             contentStream.endText();
     }
@@ -170,7 +182,7 @@ public class PDFCreator {
       contentStream.setFont(PDType1Font.TIMES_ROMAN, 18);
       //Setting the position for the line 
       contentStream.newLineAtOffset(25, 760);
-      String text = "Contagem de clientes da data : " + date;
+      String text = "Contabilidade de clientes da data : " + date;
       //Adding text in the form of string 
       contentStream.showText(text);
       contentStream.endText();
@@ -178,7 +190,7 @@ public class PDFCreator {
       contentStream.beginText();
       contentStream.setFont(PDType1Font.TIMES_ROMAN, 16);
       contentStream.newLineAtOffset(25,720);
-      String pChild = "Preço de Criança: " + Settings.childPrice;
+      String pChild = "Preço de criança: " + Settings.childPrice;
       contentStream.showText(pChild);
       contentStream.endText();
       contentStream.beginText();
@@ -198,27 +210,27 @@ public class PDFCreator {
       contentStream.endText();
       contentStream.beginText();
       contentStream.newLineAtOffset(25,620);
-      String nChild = "Numero de Crianças: " + child;
+      String nChild = "Número de crianças: " + child;
       contentStream.showText(nChild);
       contentStream.endText();
       contentStream.beginText();
       contentStream.newLineAtOffset(25, 600);
-      String nAdult = "Numero de Adultos: " + adult;
+      String nAdult = "Número de adultos: " + adult;
       contentStream.showText(nAdult);
       contentStream.endText();
       contentStream.beginText();
       contentStream.newLineAtOffset(25, 580);
-      String nAged = "Numero de idosos: " + aged;
+      String nAged = "Número de idosos: " + aged;
       contentStream.showText(nAged);
       contentStream.endText();
       contentStream.beginText();
       contentStream.newLineAtOffset(25, 560);
-      String nStudents = "Numero de estudantes : " + student;
+      String nStudents = "Número de estudantes : " + student;
       contentStream.showText(nStudents);
       contentStream.endText();
       contentStream.beginText();
       contentStream.newLineAtOffset(25, 520);
-      String totalPeople = "Numero total de pessoas : " + ( student + aged + adult + child );
+      String totalPeople = "Número total de pessoas : " + ( student + aged + adult + child );
       contentStream.showText(totalPeople);
       contentStream.endText();
       contentStream.beginText();

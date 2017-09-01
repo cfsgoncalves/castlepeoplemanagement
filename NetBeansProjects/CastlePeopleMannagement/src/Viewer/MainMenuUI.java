@@ -37,6 +37,20 @@ public class MainMenuUI extends javax.swing.JFrame {
      */
     public MainMenuUI() {
         initComponents();
+        //Close options and save
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(new JFrame(), 
+                    "Tem a certeza que pretende encerrar o programa?", "Really Closing?", 
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                    //Before exit save everything
+                    System.exit(0);
+                }
+            }
+        });
         this.costumerControler = new CustomerControler(this.jPanel3);
         this.jList2.setModel(new DefaultListModel());
         listmodel = (DefaultListModel) this.jList2.getModel();
@@ -52,6 +66,7 @@ public class MainMenuUI extends javax.swing.JFrame {
         this.jTextField3.setText(settings.getSettings().getAdultPrice() + "");
         this.jTextField2.setText(Settings.getAgedPrice() + "");
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -508,8 +523,14 @@ public class MainMenuUI extends javax.swing.JFrame {
                     a.createDocument(dtf.format(now),this.costumerControler.getCustomerList());
                     List<Customer> list = new ArrayList<Customer>();
                     this.costumerControler.setCustomerList(list);
-                    this.model = new DefaultTableModel();
-                    this.jTable1.setModel(model);
+                    this.jTable1.setModel(new DefaultTableModel());
+                    this.model = (DefaultTableModel) this.jTable1.getModel();
+                    model = (DefaultTableModel) this.jTable1.getModel();
+                    model.addColumn("Gender");
+                    model.addColumn("Age");
+                    model.addColumn("Excursion");
+                    model.addColumn("Nacionality");
+                    model.addColumn("Povoa de Lanhoso");
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(new JFrame(),"Error: Report couldn't be generated!", "Dialog",
                 JOptionPane.ERROR_MESSAGE);
@@ -558,9 +579,9 @@ public class MainMenuUI extends javax.swing.JFrame {
                 JOptionPane.ERROR_MESSAGE);
             genderException = true;
         }else if(this.jCheckBox3.isSelected()){
-            gender = "Masculine";
+            gender = "Masculino";
         }else if(this.jCheckBox4.isSelected()){
-            gender = "Feminine";
+            gender = "Feminino";
         }
 
         if(this.jCheckBox1.isSelected()){
