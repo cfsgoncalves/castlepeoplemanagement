@@ -85,10 +85,10 @@ public class PDFCreator {
       File file = new File("Pdfs/" + data + ".pdf");
       if(file.exists()){
           while(file.exists()){
-              file = new File("Pdf/" + data + "(" + acumulator + ")" + ".pdf");
               acumulator++;
+              file = new File("Pdfs/" + data + "(" + acumulator + ")" + ".pdf");
           }
-          document.save("Pdfs" + data + "(" + acumulator + ")" + ".pdf");
+          document.save("Pdfs/" + data + "(" + acumulator + ")" + ".pdf");
       }else{
         document.save("Pdfs/" + data + ".pdf");
       }
