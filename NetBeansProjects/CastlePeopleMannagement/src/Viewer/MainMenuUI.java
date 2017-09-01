@@ -31,12 +31,15 @@ public class MainMenuUI extends javax.swing.JFrame {
     private final CustomerControler costumerControler;
     private DefaultTableModel model;
     private final DefaultListModel listmodel;
+    private final DefaultListModel definitionChangeListModel;
     private final SettingsController settings;
+    private final User user;
     /**
      * Creates new form MenuPrincipalUI
      */
-    public MainMenuUI() {
+    public MainMenuUI(User user) {
         initComponents();
+        this.user = user;
         //Close options and save
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -53,6 +56,8 @@ public class MainMenuUI extends javax.swing.JFrame {
         });
         this.costumerControler = new CustomerControler(this.jPanel3);
         this.jList2.setModel(new DefaultListModel());
+        this.jList1.setModel(new DefaultListModel());
+        definitionChangeListModel = (DefaultListModel) this.jList1.getModel();
         listmodel = (DefaultListModel) this.jList2.getModel();
         model = (DefaultTableModel) this.jTable1.getModel();
         model.addColumn("Gender");
@@ -369,11 +374,6 @@ public class MainMenuUI extends javax.swing.JFrame {
         jLabel16.setText("Ultimas alterações nos preços");
         jPanel6.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 39, -1, -1));
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(jList1);
 
         jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 68, 381, 412));
@@ -501,12 +501,26 @@ public class MainMenuUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        Settings.studentPrice = Float.parseFloat(this.jTextField1.getText());
-        Settings.childPrice = Float.parseFloat(this.jTextField5.getText());
-        Settings.adultPrice = Float.parseFloat(this.jTextField3.getText());
-        Settings.agedPrice = Float.parseFloat(this.jTextField2.getText());
-        JOptionPane.showMessageDialog(new JFrame(),"Settings changed with success!", "Dialog",
-        JOptionPane.INFORMATION_MESSAGE);
+        if(Settings.studentPrice != Float.parseFloat(this.jTextField1.getText()) ||
+            Settings.childPrice != Float.parseFloat(this.jTextField5.getText()) ||
+                Settings.childPrice != Float.parseFloat(this.jTextField5.getText()) ||
+                Settings.agedPrice != Float.parseFloat(this.jTextField2.getText())){
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDateTime now = LocalDateTime.now();
+            String split[] = now.toString().split("T");
+            Settings.studentPrice = Float.parseFloat(this.jTextField1.getText());
+            Settings.childPrice = Float.parseFloat(this.jTextField5.getText());
+            Settings.adultPrice = Float.parseFloat(this.jTextField3.getText());
+            Settings.agedPrice = Float.parseFloat(this.jTextField2.getText());
+            this.definitionChangeListModel.addElement("Username: " + user.getUserName() 
+                + " " + "Data: " + split[0] + " Hora: " + split[1]);
+            JOptionPane.showMessageDialog(new JFrame(),"Settings changed with success!", "Dialog",
+            JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(new JFrame(),"Error: If you want to change settings change"
+                    + " at least one of the values", "Dialog",
+        JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -569,6 +583,7 @@ public class MainMenuUI extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         boolean genderException = false;
         boolean ageException = false;
+        float price = 0;
         String gender = "";
         String age = "";
         boolean pvl = false;
@@ -586,12 +601,16 @@ public class MainMenuUI extends javax.swing.JFrame {
 
         if(this.jCheckBox1.isSelected()){
             age = "Child";
+            price = Settings.childPrice;
         }else if(this.jCheckBox2.isSelected()){
             age = "Student";
+            price = Settings.studentPrice;
         }else if(this.jCheckBox5.isSelected()){
             age = "Adult";
+            price = Settings.adultPrice;
         }else if(this.jCheckBox7.isSelected()){
             age = "Aged";
+            price = Settings.agedPrice;
         }
         if((this.jCheckBox1.isSelected() && this.jCheckBox2.isSelected()) ||
             (this.jCheckBox1.isSelected() && this.jCheckBox5.isSelected()) ||
@@ -615,6 +634,8 @@ public class MainMenuUI extends javax.swing.JFrame {
                 customer.isExcursion() + "",customer.getNacionality(),customer.isPvl() + ""};
             model.addRow(string);
             this.costumerControler.addCustomer(customer);
+            JOptionPane.showMessageDialog(new JFrame(),"O cliente deve pagar " + price + " euros.", "Dialog",
+                JOptionPane.INFORMATION_MESSAGE);
             i++;
         }else{
             JOptionPane.showMessageDialog(new JFrame(),"Error: Please insert valid options to add a customer", "Dialog",

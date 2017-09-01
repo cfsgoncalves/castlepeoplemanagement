@@ -44,7 +44,8 @@ public class UserControler {
             if(getUserList().get(i).getUserName().equals(user) && 
                     getUserList().get(i).getPassword().equals(pass)){
                loginUI.setVisible(false);
-               new MainMenuUI().setVisible(true);
+               User userP = new User(user,"");
+               new MainMenuUI(userP).setVisible(true);
                found = true;
             }
         }
