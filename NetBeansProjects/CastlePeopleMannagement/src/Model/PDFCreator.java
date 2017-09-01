@@ -28,6 +28,7 @@ public class PDFCreator {
     
     public void createDocument(String date,List<Customer> list) throws IOException{
       createDirectory();
+      int acumulator = 0;
       boolean swap = true;
       int iterator = 0;
       int pageNumber = 0;
@@ -80,7 +81,17 @@ public class PDFCreator {
       PDPageContentStream contentStream = new PDPageContentStream(document,document.getPage(counter+1));
       addContability(contentStream,date,child,adult,student,aged);
       contentStream.close();
-      document.save("Pdfs/" + data + ".pdf");
+      //Create multiple files
+      File file = new File("Pdfs/" + data + ".pdf");
+      if(file.exists()){
+          while(file.exists()){
+              file = new File("Pdf/" + data + "(" + acumulator + ")" + ".pdf");
+              acumulator++;
+          }
+          document.save("Pdfs" + data + "(" + acumulator + ")" + ".pdf");
+      }else{
+        document.save("Pdfs/" + data + ".pdf");
+      }
       document.close();
       System.out.println("PDF Created");
     } 
@@ -259,5 +270,7 @@ public class PDFCreator {
             }
         }
     }
+    
+    
 }
 
