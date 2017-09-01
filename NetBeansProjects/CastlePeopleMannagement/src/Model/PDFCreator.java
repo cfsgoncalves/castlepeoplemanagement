@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +27,16 @@ public class PDFCreator {
     }
     
     public void createDocument(String date,List<Customer> list) throws IOException{
+      createDirectory();
       boolean swap = true;
       int iterator = 0;
       int pageNumber = 0;
       int counter = -1;
       int max = 35;
+      int aged = 0;
+      int child = 0;
+      int adult = 0;
+      int student = 0;
       ArrayList<Customer> customerList = (ArrayList<Customer>) list; 
       String [] split = date.split("/");
       String data = split[0] + "-" + split[1] + "-" + split[2];
@@ -50,6 +56,15 @@ public class PDFCreator {
         }
         for(int i=0;i<max;i++){
             addCustomers(contentStream,pageNumber,customerList.get(iterator));
+            if(customerList.get(iterator).getAge().equals("Aged")){
+                aged++;
+            }else if(customerList.get(iterator).getAge().equals("Student")){
+                student++;
+            }else if(customerList.get(iterator).getAge().equals("Adult")){
+                adult++;
+            }else{
+                child++;
+            }
             iterator++;
             pageNumber = pageNumber - 20;
         }
@@ -59,7 +74,7 @@ public class PDFCreator {
       PDPage page = new PDPage();
       document.addPage(page);
       PDPageContentStream contentStream = new PDPageContentStream(document,document.getPage(counter+1));
-      addContability(contentStream,date);
+      addContability(contentStream,date,child,adult,student,aged);
       contentStream.close();
       document.save("Pdfs/" + data + ".pdf");
       document.close();
@@ -141,7 +156,10 @@ public class PDFCreator {
             contentStream.endText();
     }
 
-    private void addContability(PDPageContentStream contentStream,String date) throws IOException{
+    //Needs work tho
+    private void addContability(PDPageContentStream contentStream
+            ,String date,int child,int adult,int student, int aged)
+            throws IOException{
         PDImageXObject pdImage = PDImageXObject.createFromFile("/home/claudio/NetBeansProjects/"
               + "NewFolder/CastleMannagement/NetBeansProjects/CastlePeopleMannagement"
               + "/src/Images/brasao.jpg", document);
@@ -160,30 +178,74 @@ public class PDFCreator {
       contentStream.beginText();
       contentStream.setFont(PDType1Font.TIMES_ROMAN, 16);
       contentStream.newLineAtOffset(25,720);
-      String age = "Preço de Criança: " + Settings.childPrice;
-      contentStream.showText(age);
+      String pChild = "Preço de Criança: " + Settings.childPrice;
+      contentStream.showText(pChild);
       contentStream.endText();
       contentStream.beginText();
       contentStream.newLineAtOffset(25, 700);
-      String gender = "Preço de >65 anos: " + Settings.agedPrice;
-      contentStream.showText(gender);
+      String pAged = "Preço de >65 anos: " + Settings.agedPrice;
+      contentStream.showText(pAged);
       contentStream.endText();
       contentStream.beginText();
       contentStream.newLineAtOffset(25, 680);
-      String nacionality = "Preço de adulto: " + Settings.adultPrice;
-      contentStream.showText(nacionality);
+      String pAdult = "Preço de adulto: " + Settings.adultPrice;
+      contentStream.showText(pAdult);
       contentStream.endText();
       contentStream.beginText();
       contentStream.newLineAtOffset(25, 660);
-      String excursion = "Preço de estudante : " + Settings.studentPrice;
-      contentStream.showText(excursion);
+      String pStudent = "Preço de estudante : " + Settings.studentPrice;
+      contentStream.showText(pStudent);
       contentStream.endText();
       contentStream.beginText();
-      contentStream.newLineAtOffset(25, 640);
-      String pvl = "Total ganhos : ";
-      contentStream.showText(pvl);
+      contentStream.newLineAtOffset(25,620);
+      String nChild = "Numero de Crianças: " + child;
+      contentStream.showText(nChild);
+      contentStream.endText();
+      contentStream.beginText();
+      contentStream.newLineAtOffset(25, 600);
+      String nAdult = "Numero de Adultos: " + adult;
+      contentStream.showText(nAdult);
+      contentStream.endText();
+      contentStream.beginText();
+      contentStream.newLineAtOffset(25, 580);
+      String nAged = "Numero de idosos: " + aged;
+      contentStream.showText(nAged);
+      contentStream.endText();
+      contentStream.beginText();
+      contentStream.newLineAtOffset(25, 560);
+      String nStudents = "Numero de estudantes : " + student;
+      contentStream.showText(nStudents);
+      contentStream.endText();
+      contentStream.beginText();
+      contentStream.newLineAtOffset(25, 520);
+      String totalPeople = "Numero total de pessoas : " + ( student + aged + adult + child );
+      contentStream.showText(totalPeople);
+      contentStream.endText();
+      contentStream.beginText();
+      contentStream.newLineAtOffset(25, 500);
+      String gains = "Total ganhos : " + (student * Settings.studentPrice + 
+              child * Settings.childPrice + aged * Settings.agedPrice + adult * Settings.adultPrice);
+      contentStream.showText(gains);
       //Ending the content stream
       contentStream.endText();
     
     }
+
+    private void createDirectory(){
+        File theDir = new File("Pdfs/");
+        if (!theDir.exists()) {
+            System.out.println("creating directory: " + theDir.getName());
+            boolean result = false;
+            try{
+                theDir.mkdir();
+                result = true;
+            }catch(SecurityException se){
+            //handle it
+            }        
+            if(result) {    
+                System.out.println("DIR created");  
+            }
+        }
+    }
 }
+

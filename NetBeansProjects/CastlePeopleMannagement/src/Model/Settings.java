@@ -28,7 +28,7 @@ public class Settings {
     }
 
     public void setAdultPrice(float adultPrice) {
-        this.adultPrice = adultPrice;
+        Settings.adultPrice = adultPrice;
     }
 
     public float getChildPrice() {
@@ -36,7 +36,7 @@ public class Settings {
     }
 
     public void setChildPrice(float childPrice) {
-        this.childPrice = childPrice;
+        Settings.childPrice = childPrice;
     }
 
     public static float getAgedPrice() {

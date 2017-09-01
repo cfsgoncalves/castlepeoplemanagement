@@ -7,8 +7,6 @@ package Viewer;
 
 import Controler.CustomerControler;
 import Controler.SettingsController;
-//import Controler.SettingsControler;
-import Controler.UserControler;
 import Model.Customer;
 import Model.PDFCreator;
 import Model.Settings;
@@ -16,14 +14,12 @@ import Model.User;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.apache.pdfbox.pdmodel.PDPage;
-//import Model.Settings;
 
 
 /**
@@ -31,9 +27,9 @@ import org.apache.pdfbox.pdmodel.PDPage;
  * @author filipe
  */
 public class MainMenuUI extends javax.swing.JFrame {
-    private UserControler userControler;
-    private CustomerControler costumerControler;
-    private final DefaultTableModel model;
+    //private UserControler userControler;
+    private final CustomerControler costumerControler;
+    private DefaultTableModel model;
     private final DefaultListModel listmodel;
     private final SettingsController settings;
     /**
@@ -48,12 +44,13 @@ public class MainMenuUI extends javax.swing.JFrame {
         model.addColumn("Gender");
         model.addColumn("Age");
         model.addColumn("Excursion");
-        model.addColumn("Nacionlaity");
+        model.addColumn("Nacionality");
         model.addColumn("Povoa de Lanhoso");
         this.settings =  new SettingsController(this); 
         this.jTextField1.setText(settings.getSettings().getStudentPrice() + "");
-        this.jTextField2.setText(settings.getSettings().getChildPrice() + "");
+        this.jTextField5.setText(settings.getSettings().getChildPrice() + "");
         this.jTextField3.setText(settings.getSettings().getAdultPrice() + "");
+        this.jTextField2.setText(Settings.getAgedPrice() + "");
     }
 
     /**
@@ -354,7 +351,7 @@ public class MainMenuUI extends javax.swing.JFrame {
         });
         jPanel6.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 418, 201, 62));
 
-        jLabel16.setText("Ultimos acessos");
+        jLabel16.setText("Ultimas alterações nos preços");
         jPanel6.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 39, -1, -1));
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
@@ -368,6 +365,12 @@ public class MainMenuUI extends javax.swing.JFrame {
 
         jLabel24.setText(">65 Anos");
         jPanel6.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
         jPanel6.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 58, -1));
 
         jLabel25.setText("Euros");
@@ -503,8 +506,13 @@ public class MainMenuUI extends javax.swing.JFrame {
                 LocalDateTime now = LocalDateTime.now();
                 try {
                     a.createDocument(dtf.format(now),this.costumerControler.getCustomerList());
+                    List<Customer> list = new ArrayList<Customer>();
+                    this.costumerControler.setCustomerList(list);
+                    this.model = new DefaultTableModel();
+                    this.jTable1.setModel(model);
                 } catch (IOException ex) {
-                    Logger.getLogger(MainMenuUI.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(new JFrame(),"Error: Report couldn't be generated!", "Dialog",
+                JOptionPane.ERROR_MESSAGE);
                 }
                 
             }
@@ -596,6 +604,10 @@ public class MainMenuUI extends javax.swing.JFrame {
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
 
     }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
