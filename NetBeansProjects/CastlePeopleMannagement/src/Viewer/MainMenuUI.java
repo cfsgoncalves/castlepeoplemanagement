@@ -88,7 +88,6 @@ public class MainMenuUI extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -145,6 +144,7 @@ public class MainMenuUI extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
         jButton11 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -212,9 +212,6 @@ public class MainMenuUI extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(254, 254, 254));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(new java.awt.CardLayout());
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pvl.png"))); // NOI18N
-        jPanel2.add(jLabel2, "card2");
 
         jPanel4.setBackground(new java.awt.Color(254, 254, 254));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -446,6 +443,9 @@ public class MainMenuUI extends javax.swing.JFrame {
 
         jPanel2.add(jPanel7, "card5");
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pvl.png"))); // NOI18N
+        jPanel2.add(jLabel2, "card2");
+
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -501,25 +501,30 @@ public class MainMenuUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        if(Settings.studentPrice != Float.parseFloat(this.jTextField1.getText()) ||
-            Settings.childPrice != Float.parseFloat(this.jTextField5.getText()) ||
+        try{
+            if(Settings.studentPrice != Float.parseFloat(this.jTextField1.getText()) ||
                 Settings.childPrice != Float.parseFloat(this.jTextField5.getText()) ||
-                Settings.agedPrice != Float.parseFloat(this.jTextField2.getText())){
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDateTime now = LocalDateTime.now();
-            String split[] = now.toString().split("T");
-            Settings.studentPrice = Float.parseFloat(this.jTextField1.getText());
-            Settings.childPrice = Float.parseFloat(this.jTextField5.getText());
-            Settings.adultPrice = Float.parseFloat(this.jTextField3.getText());
-            Settings.agedPrice = Float.parseFloat(this.jTextField2.getText());
-            this.definitionChangeListModel.addElement("Username: " + user.getUserName() 
+                    Settings.childPrice != Float.parseFloat(this.jTextField5.getText()) ||
+                    Settings.agedPrice != Float.parseFloat(this.jTextField2.getText())){
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDateTime now = LocalDateTime.now();
+                String split[] = now.toString().split("T");
+                Settings.studentPrice = Float.parseFloat(this.jTextField1.getText());
+                Settings.childPrice = Float.parseFloat(this.jTextField5.getText());
+                Settings.adultPrice = Float.parseFloat(this.jTextField3.getText());
+                Settings.agedPrice = Float.parseFloat(this.jTextField2.getText());
+                this.definitionChangeListModel.addElement("Username: " + user.getUserName() 
                 + " " + "Data: " + split[0] + " Hora: " + split[1]);
-            JOptionPane.showMessageDialog(new JFrame(),"Settings changed with success!", "Dialog",
-            JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            JOptionPane.showMessageDialog(new JFrame(),"Error: If you want to change settings change"
+                JOptionPane.showMessageDialog(new JFrame(),"Settings changed with success!", "Dialog",
+                JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(new JFrame(),"Error: If you want to change settings change"
                     + " at least one of the values", "Dialog",
-        JOptionPane.ERROR_MESSAGE);
+            JOptionPane.ERROR_MESSAGE);
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(new JFrame(),"Error: Insert only numeric values ", "Dialog",
+            JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton9ActionPerformed
 
