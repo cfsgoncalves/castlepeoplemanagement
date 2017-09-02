@@ -5,11 +5,14 @@
  */
 package Model;
 
+import java.io.Serializable;
+
 /**
  * NOTA : ver atributos no SMemo e fazer bd
  * @author filipe
  */
-public class Customer {
+public class Customer implements Serializable{
+    private static final long serialVersionUID = 1L;
     private String age;
     private String gender;
     private boolean excursion;

@@ -6,6 +6,7 @@
 package Controler;
 
 import Model.Customer;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -14,7 +15,8 @@ import javax.swing.JPanel;
  *
  * @author filipe
  */
-public class CustomerControler {
+public class CustomerControler implements Serializable{
+    private static final long serialVersionUID = 1L;
     private JPanel customerUI;
     private List<Customer> customerList; 
 

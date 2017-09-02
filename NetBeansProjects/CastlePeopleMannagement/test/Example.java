@@ -1,5 +1,5 @@
 
-import Model.ConecaoDB;
+import garbage.ConecaoDB;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

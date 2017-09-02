@@ -8,10 +8,13 @@ package Viewer;
 import Controler.CustomerControler;
 import Controler.SettingsController;
 import Model.Customer;
+import Model.DesSerialization;
 import Model.PDFCreator;
+import Model.Serialization;
 import Model.Settings;
 import Model.User;
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -26,7 +29,8 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author filipe
  */
-public class MainMenuUI extends javax.swing.JFrame {
+public class MainMenuUI extends javax.swing.JFrame implements Serializable{
+    private static final long serialVersionUID = 1L;
     //private UserControler userControler;
     private final CustomerControler costumerControler;
     private DefaultTableModel model;
@@ -34,10 +38,10 @@ public class MainMenuUI extends javax.swing.JFrame {
     private final DefaultListModel definitionChangeListModel;
     private final SettingsController settings;
     private final User user;
-    /**
+    /**ial;
      * Creates new form MenuPrincipalUI
      */
-    public MainMenuUI(User user) {
+    public MainMenuUI(User user){
         initComponents();
         this.user = user;
         //Close options and save
@@ -50,6 +54,8 @@ public class MainMenuUI extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                     //Before exit save everything
+                    Serialization a = new Serialization();
+                    a.doSerialization("./costumer.ser",costumerControler.getCustomerList());
                     System.exit(0);
                 }
             }
@@ -70,6 +76,20 @@ public class MainMenuUI extends javax.swing.JFrame {
         this.jTextField5.setText(settings.getSettings().getChildPrice() + "");
         this.jTextField3.setText(settings.getSettings().getAdultPrice() + "");
         this.jTextField2.setText(Settings.getAgedPrice() + "");
+        DesSerialization des = new DesSerialization();
+        try{
+            des.doDesSerialization("./costumer.ser");
+            ArrayList<Customer> l = (ArrayList<Customer>) des.getObject();
+            System.out.println(l.get(0).getAge());
+            this.costumerControler.setCustomerList(l);
+            for(Customer customer : costumerControler.getCustomerList()){
+                String string[] = {customer.getGender(), customer.getAge(),
+                customer.isExcursion() + "",customer.getNacionality(),customer.isPvl() + ""};
+            model.addRow(string);
+            }
+        }catch(Exception e){
+            
+        }
     }
     
 
@@ -88,6 +108,7 @@ public class MainMenuUI extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -144,7 +165,6 @@ public class MainMenuUI extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
         jButton11 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -212,6 +232,9 @@ public class MainMenuUI extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(254, 254, 254));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(new java.awt.CardLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pvl.png"))); // NOI18N
+        jPanel2.add(jLabel2, "card2");
 
         jPanel4.setBackground(new java.awt.Color(254, 254, 254));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -443,9 +466,6 @@ public class MainMenuUI extends javax.swing.JFrame {
 
         jPanel2.add(jPanel7, "card5");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pvl.png"))); // NOI18N
-        jPanel2.add(jLabel2, "card2");
-
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -574,6 +594,7 @@ public class MainMenuUI extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         if(this.jTable1.getSelectedRow() != -1){
             model.removeRow(jTable1.getSelectedRow());
+            costumerControler.getCustomerList().remove(jTable1.getSelectedRow() + 1);
         }else{
             JOptionPane.showMessageDialog(new JFrame(),"Error: Please select a customer to be deleted!", "Dialog",
                 JOptionPane.ERROR_MESSAGE);
@@ -583,6 +604,7 @@ public class MainMenuUI extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         int lastElementIndex = this.jTable1.getModel().getRowCount() - 1;
         model.removeRow(lastElementIndex);
+        costumerControler.getCustomerList().remove(lastElementIndex);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
