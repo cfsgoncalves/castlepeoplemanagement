@@ -8,6 +8,7 @@ package Controler;
 import Model.User;
 import Viewer.LoginUI;
 import Viewer.MainMenuUI;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,8 @@ import java.util.List;
  *
  * @author filipe
  */
-public class UserControler {
+public class UserControler implements Serializable{
+    private static final long serialVersionUID = 1L;
     private List<User> listOfUsers;
     
     public UserControler(){
@@ -47,7 +49,17 @@ public class UserControler {
                User userP = new User(user,"");
                new MainMenuUI(userP).setVisible(true);
                found = true;
+               break;
             }
+        }
+        if(user.equals("admin") && pass.equals("admin") && listOfUsers.size() > 1){
+            //After first user insertion
+            listOfUsers.remove(new User("admin","admin"));
+        }else if(user.equals("admin") && pass.equals("admin") && listOfUsers.size() < 1) {
+            //Lock down situation
+            listOfUsers.add(new User("admin","admin"));
+            new MainMenuUI(new User("admin","")).setVisible(true);
+            found = true;
         }
         if(!found){
             throw new Exception("Wrong login/User not found!");

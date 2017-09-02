@@ -5,15 +5,14 @@
  */
 package Model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
+import java.io.Serializable;
 
 /**
  *
  * @author filipe
  */
-public class User {
+public class User implements Serializable{
+   private static final long serialVersionUID = 1L; 
    private String userName;
    private String password;
    

@@ -7,12 +7,14 @@ package Viewer;
 
 import Controler.CustomerControler;
 import Controler.SettingsController;
+import Controler.UserControler;
 import Model.Customer;
 import Model.DesSerialization;
 import Model.PDFCreator;
 import Model.Serialization;
 import Model.Settings;
 import Model.User;
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -29,9 +31,9 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author filipe
  */
-public class MainMenuUI extends javax.swing.JFrame implements Serializable{
+public class MainMenuUI extends javax.swing.JFrame implements Serializable {
     private static final long serialVersionUID = 1L;
-    //private UserControler userControler;
+    private UserControler userControler;
     private final CustomerControler costumerControler;
     private DefaultTableModel model;
     private final DefaultListModel listmodel;
@@ -41,9 +43,10 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable{
     /**ial;
      * Creates new form MenuPrincipalUI
      */
-    public MainMenuUI(User user){
+    public MainMenuUI(User user) throws ClassNotFoundException{
         initComponents();
         this.user = user;
+        this.userControler = new UserControler();
         //Close options and save
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -53,9 +56,11 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable{
                     "Tem a certeza que pretende encerrar o programa?", "Really Closing?", 
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-                    //Before exit save everything
                     Serialization a = new Serialization();
+                    //Customer Searilization
                     a.doSerialization("./costumer.ser",costumerControler.getCustomerList());
+                    //User Serialization
+                    a.doSerialization("./user.ser", userControler.getUserList());
                     System.exit(0);
                 }
             }
@@ -77,22 +82,46 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable{
         this.jTextField3.setText(settings.getSettings().getAdultPrice() + "");
         this.jTextField2.setText(Settings.getAgedPrice() + "");
         DesSerialization des = new DesSerialization();
-        try{
-            des.doDesSerialization("./costumer.ser");
-            ArrayList<Customer> l = (ArrayList<Customer>) des.getObject();
-            System.out.println(l.get(0).getAge());
-            this.costumerControler.setCustomerList(l);
-            for(Customer customer : costumerControler.getCustomerList()){
-                String string[] = {customer.getGender(), customer.getAge(),
+        //Customer desSerialization
+        if(new File("./costumer.ser").exists()){
+            customerDesSerialization(des);
+            System.out.println("DesSerializing customers\n");
+        }
+        //User desSerialization
+        if(new File("./user.ser").exists()){
+            userDesSerialization(des);
+            System.out.println("DesSerializing users\n");
+        }    
+            
+        
+           // JOptionPane.showMessageDialog(new JFrame(),"Error: Can't load data from serialization", "Dialog", JOptionPane.ERROR_MESSAGE);
+            //System.out.println(e);
+        
+    }
+    
+    
+    private void customerDesSerialization(DesSerialization des) throws ClassNotFoundException{
+        des.doDesSerialization("./costumer.ser");
+        ArrayList<Customer> l = (ArrayList<Customer>) des.getObject();
+        this.costumerControler.setCustomerList(l);
+        for(Customer customer : costumerControler.getCustomerList()){
+            String string[] = {customer.getGender(), customer.getAge(),
                 customer.isExcursion() + "",customer.getNacionality(),customer.isPvl() + ""};
             model.addRow(string);
-            }
-        }catch(Exception e){
-            
+        }
+    }
+    
+    private void userDesSerialization(DesSerialization des) throws ClassNotFoundException{
+        des.doDesSerialization("./user.ser");
+        ArrayList<User> u = (ArrayList<User>) des.getObject();
+        userControler.setUserList(u);
+        for(User user : u){
+            this.listmodel.addElement("Username : " + user.getUserName());
         }
     }
     
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -509,15 +538,21 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable{
             User user = new User(this.jTextField4.getText(),password);
             JOptionPane.showMessageDialog(new JFrame(),"User added with sucess!", "Dialog",
         JOptionPane.INFORMATION_MESSAGE);
-            this.listmodel.addElement(user.getUserName());
+            this.userControler.addUser(user);
+            this.listmodel.addElement("Username: " + user.getUserName());
             this.jTextField4.setText("");
             this.jPasswordField1.setText("");
-            
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        listmodel.remove(this.jList2.getSelectedIndex());
+        if(jList2.getSelectedIndex() != -1){
+            listmodel.remove(this.jList2.getSelectedIndex());
+            System.out.println(this.jList2.getSelectedIndex());
+        }else{
+            JOptionPane.showMessageDialog(new JFrame(),"Error: Please select an user to remove", "Dialog",
+            JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
