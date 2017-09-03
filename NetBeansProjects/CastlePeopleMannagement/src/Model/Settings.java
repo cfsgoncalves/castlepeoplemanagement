@@ -5,46 +5,17 @@
  */
 package Model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author claudio
  */
-public class Settings {
+public class Settings implements Serializable{
+    private static final long serialVersionUID = 1L;
     public static float studentPrice = 0;
     public static float adultPrice = 0;
     public static float childPrice = 0;
     public static float agedPrice = 0;
-
-    public float getStudentPrice() {
-        return studentPrice;
-    }
-
-    public void setStudentPrice(float studentPrice) {
-        this.studentPrice = studentPrice;
-    }
-
-    public float getAdultPrice() {
-        return adultPrice;
-    }
-
-    public void setAdultPrice(float adultPrice) {
-        Settings.adultPrice = adultPrice;
-    }
-
-    public float getChildPrice() {
-        return childPrice;
-    }
-
-    public void setChildPrice(float childPrice) {
-        Settings.childPrice = childPrice;
-    }
-
-    public static float getAgedPrice() {
-        return agedPrice;
-    }
-
-    public static void setAgedPrice(float agedPrice) {
-        Settings.agedPrice = agedPrice;
-    }
    
 }

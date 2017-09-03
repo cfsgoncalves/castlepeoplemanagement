@@ -8,6 +8,7 @@ package Viewer;
 import Controler.UserControler;
 import Model.DesSerialization;
 import Model.User;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -121,9 +122,11 @@ public class LoginUI extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             DesSerialization des = new DesSerialization();
-            des.doDesSerialization("./user.ser");
-            ArrayList<User> u = (ArrayList<User>) des.getObject();
-            userControler.setUserList(u);
+            if(new File("./user.ser").exists()){
+                des.doDesSerialization("./user.ser");
+                ArrayList<User> u = (ArrayList<User>) des.getObject();
+                userControler.setUserList(u);
+            }
             userControler.validarUtilizador(jTextField1.getText(), jPasswordField1.getPassword(),this);
         } catch (Exception ex) {
             System.out.println(ex);

@@ -6,7 +6,6 @@
 package Viewer;
 
 import Controler.CustomerControler;
-import Controler.SettingsController;
 import Controler.UserControler;
 import Model.Customer;
 import Model.DesSerialization;
@@ -36,9 +35,8 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
     private UserControler userControler;
     private final CustomerControler costumerControler;
     private DefaultTableModel model;
-    private final DefaultListModel listmodel;
+    private final DefaultTableModel tablemodel;
     private final DefaultListModel definitionChangeListModel;
-    private final SettingsController settings;
     private final User user;
     /**ial;
      * Creates new form MenuPrincipalUI
@@ -61,26 +59,32 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
                     a.doSerialization("./costumer.ser",costumerControler.getCustomerList());
                     //User Serialization
                     a.doSerialization("./user.ser", userControler.getUserList());
+                    //Settings Serialization
+                    Float aux[] = {Settings.childPrice , Settings.studentPrice, Settings.adultPrice,
+            Settings.agedPrice};
+                    a.doSerialization("./settings.ser",aux);
+                    //Settings Log Serialization
+                    ArrayList<String> logList = new ArrayList<String>();
+                    for(int i=0;i<jList1.getModel().getSize();i++){
+                        logList.add(jList1.getModel().getElementAt(i));
+                    }
+                    a.doSerialization("./settingsLog.ser", logList);
                     System.exit(0);
                 }
             }
         });
         this.costumerControler = new CustomerControler(this.jPanel3);
-        this.jList2.setModel(new DefaultListModel());
+        this.jTable2.setModel(new DefaultTableModel());
         this.jList1.setModel(new DefaultListModel());
         definitionChangeListModel = (DefaultListModel) this.jList1.getModel();
-        listmodel = (DefaultListModel) this.jList2.getModel();
+        tablemodel = (DefaultTableModel) this.jTable2.getModel();
         model = (DefaultTableModel) this.jTable1.getModel();
         model.addColumn("Gender");
         model.addColumn("Age");
         model.addColumn("Excursion");
         model.addColumn("Nacionality");
         model.addColumn("Povoa de Lanhoso");
-        this.settings =  new SettingsController(this); 
-        this.jTextField1.setText(settings.getSettings().getStudentPrice() + "");
-        this.jTextField5.setText(settings.getSettings().getChildPrice() + "");
-        this.jTextField3.setText(settings.getSettings().getAdultPrice() + "");
-        this.jTextField2.setText(Settings.getAgedPrice() + "");
+        tablemodel.addColumn("Username");
         DesSerialization des = new DesSerialization();
         //Customer desSerialization
         if(new File("./costumer.ser").exists()){
@@ -92,7 +96,20 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
             userDesSerialization(des);
             System.out.println("DesSerializing users\n");
         }    
-            
+        
+        if(new File("./settings.ser").exists()){
+            settingsDesSerialization(des);
+            System.out.println("DesSerializing settings");
+        }
+        
+        if(new File("./settingsLog.ser").exists()){
+            settingsLogDesSerialization(des);
+            System.out.println("DesSerializing settingsLog");
+        }
+        this.jTextField1.setText(Settings.adultPrice + "");
+        this.jTextField5.setText(Settings.studentPrice + "");
+        this.jTextField3.setText(Settings.adultPrice + "");
+        this.jTextField2.setText(Settings.agedPrice + "");
         
            // JOptionPane.showMessageDialog(new JFrame(),"Error: Can't load data from serialization", "Dialog", JOptionPane.ERROR_MESSAGE);
             //System.out.println(e);
@@ -116,7 +133,25 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
         ArrayList<User> u = (ArrayList<User>) des.getObject();
         userControler.setUserList(u);
         for(User user : u){
-            this.listmodel.addElement("Username : " + user.getUserName());
+            String username[] = {user.getUserName()};
+            this.tablemodel.addRow(username);
+        }
+    }
+    
+    private void settingsDesSerialization(DesSerialization des) throws ClassNotFoundException{
+        des.doDesSerialization("./settings.ser");
+        Float aux[] = (Float[]) des.getObject();
+        Settings.childPrice = aux[0];
+        Settings.studentPrice = aux[1];
+        Settings.adultPrice = aux[2];
+        Settings.agedPrice = aux[3];
+    }
+    
+    private void settingsLogDesSerialization(DesSerialization des) throws ClassNotFoundException{
+        des.doDesSerialization("./settingsLog.ser");
+        ArrayList<String> aux  = (ArrayList<String>) des.getObject();
+        for(String s : aux){
+            this.definitionChangeListModel.addElement(s);
         }
     }
     
@@ -191,9 +226,9 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
         jPasswordField1 = new javax.swing.JPasswordField();
         jButton10 = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
         jButton11 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -476,15 +511,6 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
         jLabel21.setText("Lista de Utilizadores");
         jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, -1, -1));
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList2);
-
-        jPanel7.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 305, 436));
-
         jButton11.setText("Remover");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -492,6 +518,13 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
             }
         });
         jPanel7.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 90, -1));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+
+        ));
+        jScrollPane4.setViewportView(jTable2);
+
+        jPanel7.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 60, 290, -1));
 
         jPanel2.add(jPanel7, "card5");
 
@@ -539,16 +572,17 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
             JOptionPane.showMessageDialog(new JFrame(),"User added with sucess!", "Dialog",
         JOptionPane.INFORMATION_MESSAGE);
             this.userControler.addUser(user);
-            this.listmodel.addElement("Username: " + user.getUserName());
+            String userName[] = {user.getUserName()};
+            this.tablemodel.addRow(userName);
             this.jTextField4.setText("");
             this.jPasswordField1.setText("");
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        if(jList2.getSelectedIndex() != -1){
-            listmodel.remove(this.jList2.getSelectedIndex());
-            System.out.println(this.jList2.getSelectedIndex());
+        if(jTable2.getSelectedRow() != -1){
+            tablemodel.removeRow(this.jTable2.getSelectedRow());
+            System.out.println(tablemodel.getValueAt(1, 0));
         }else{
             JOptionPane.showMessageDialog(new JFrame(),"Error: Please select an user to remove", "Dialog",
             JOptionPane.ERROR_MESSAGE);
@@ -629,7 +663,6 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         if(this.jTable1.getSelectedRow() != -1){
             model.removeRow(jTable1.getSelectedRow());
-            costumerControler.getCustomerList().remove(jTable1.getSelectedRow() + 1);
         }else{
             JOptionPane.showMessageDialog(new JFrame(),"Error: Please select a customer to be deleted!", "Dialog",
                 JOptionPane.ERROR_MESSAGE);
@@ -760,7 +793,6 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -770,9 +802,10 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
