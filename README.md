@@ -1,5 +1,8 @@
 # Castle People Management
 
-* Firt project on github
-* Using java + mvc 
+* Using MVC (Model, Viewer, Controler) Pattern
+* Using serialization for saving data
+* Generating PDFs
+* Using md5 to encrypt password of users.
 
+* This program is for counting people on the Castle of Povoa de Lanhoso. It will generate pdf files with the people and what they paid to acess the castle. 
