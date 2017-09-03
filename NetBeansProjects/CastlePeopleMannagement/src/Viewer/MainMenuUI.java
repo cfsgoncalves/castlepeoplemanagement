@@ -9,6 +9,7 @@ import Controler.CustomerControler;
 import Controler.UserControler;
 import Model.Customer;
 import Model.DesSerialization;
+import Model.EncryptPassword;
 import Model.PDFCreator;
 import Model.Serialization;
 import Model.Settings;
@@ -16,10 +17,13 @@ import Model.User;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -56,8 +60,30 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
                     JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                     Serialization a = new Serialization();
                     //Customer Searilization
+                    costumerControler.setCustomerList(new ArrayList<Customer>());
+                    for(int i=0;i<model.getRowCount();i++){
+                        //gender, age ,excursion,nacionality,povoa de lanhoso
+                        //age, gender, excursion,nacionality, pvl
+                        boolean auxE = false;
+                        boolean auxPvl =  false;
+                        if( model.getValueAt(i, 2).toString().equals("true")){
+                            auxE = true;
+                        }
+                         
+                        if(model.getValueAt(i, 4).toString().equals("true")){
+                            auxPvl = true;
+                        }
+                        costumerControler.getCustomerList().add(new Customer((String)model.getValueAt(i, 1),
+                                (String) model.getValueAt(i, 0),auxE,
+                        (String) model.getValueAt(i, 3), auxPvl ));
+                    }
                     a.doSerialization("./costumer.ser",costumerControler.getCustomerList());
                     //User Serialization
+                    userControler.setUserList(new ArrayList<User>());
+                    for(int i=0;i<tablemodel.getRowCount();i++){
+                        userControler.getUserList().add(new User((String) tablemodel.getValueAt(i,0)
+                                ,(String)tablemodel.getValueAt(i, 1)));
+                    }
                     a.doSerialization("./user.ser", userControler.getUserList());
                     //Settings Serialization
                     Float aux[] = {Settings.childPrice , Settings.studentPrice, Settings.adultPrice,
@@ -85,6 +111,7 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
         model.addColumn("Nacionality");
         model.addColumn("Povoa de Lanhoso");
         tablemodel.addColumn("Username");
+        tablemodel.addColumn("Password");
         DesSerialization des = new DesSerialization();
         //Customer desSerialization
         if(new File("./costumer.ser").exists()){
@@ -133,8 +160,9 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
         ArrayList<User> u = (ArrayList<User>) des.getObject();
         userControler.setUserList(u);
         for(User user : u){
-            String username[] = {user.getUserName()};
+            String username[] = {user.getUserName(), user.getPassword()};
             this.tablemodel.addRow(username);
+            
         }
     }
     
@@ -568,11 +596,17 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
             JOptionPane.showMessageDialog(new JFrame(),"Please fill the empty fields!", "Dialog",
         JOptionPane.ERROR_MESSAGE);
         }else{
-            User user = new User(this.jTextField4.getText(),password);
+            User user = new User("","");
+            try {
+                user = new User(this.jTextField4.getText(),EncryptPassword.cryptWithMD5(password));
+            } catch (NoSuchAlgorithmException ex) {
+               JOptionPane.showMessageDialog(new JFrame(),"Error: Password coundn't be encrypt", "Dialog",
+        JOptionPane.ERROR_MESSAGE);
+            }
             JOptionPane.showMessageDialog(new JFrame(),"User added with sucess!", "Dialog",
         JOptionPane.INFORMATION_MESSAGE);
             this.userControler.addUser(user);
-            String userName[] = {user.getUserName()};
+            String userName[] = {user.getUserName(),user.getPassword()};
             this.tablemodel.addRow(userName);
             this.jTextField4.setText("");
             this.jPasswordField1.setText("");
@@ -582,7 +616,6 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         if(jTable2.getSelectedRow() != -1){
             tablemodel.removeRow(this.jTable2.getSelectedRow());
-            System.out.println(tablemodel.getValueAt(1, 0));
         }else{
             JOptionPane.showMessageDialog(new JFrame(),"Error: Please select an user to remove", "Dialog",
             JOptionPane.ERROR_MESSAGE);

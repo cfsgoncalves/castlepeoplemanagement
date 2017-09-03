@@ -24,7 +24,7 @@ public class Serialization implements Serializable{
             out.writeObject(e);
             out.close();
             fileOut.close();
-            System.out.printf("Serialized data is saved in " + path);
+            System.out.printf("Serialized data is saved in " + path + "\n");
         }catch(IOException i) {
             i.printStackTrace();
         }

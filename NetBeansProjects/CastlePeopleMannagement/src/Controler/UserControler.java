@@ -5,6 +5,7 @@
  */
 package Controler;
 
+import Model.EncryptPassword;
 import Model.User;
 import Viewer.LoginUI;
 import Viewer.MainMenuUI;
@@ -44,7 +45,7 @@ public class UserControler implements Serializable{
         }
         for(int i=0;i<getUserList().size();i++){
             if(getUserList().get(i).getUserName().equals(user) && 
-                    getUserList().get(i).getPassword().equals(pass)){
+                    getUserList().get(i).getPassword().equals(EncryptPassword.cryptWithMD5(pass))){
                loginUI.setVisible(false);
                User userP = new User(user,"");
                new MainMenuUI(userP).setVisible(true);
@@ -57,7 +58,7 @@ public class UserControler implements Serializable{
             listOfUsers.remove(new User("admin","admin"));
         }else if(user.equals("admin") && pass.equals("admin") && listOfUsers.size() < 1) {
             //Lock down situation
-            listOfUsers.add(new User("admin","admin"));
+            listOfUsers.add(new User("admin",EncryptPassword.cryptWithMD5("admin")));
             new MainMenuUI(new User("admin","")).setVisible(true);
             found = true;
         }

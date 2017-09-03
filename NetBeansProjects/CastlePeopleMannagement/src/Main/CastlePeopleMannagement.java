@@ -7,6 +7,7 @@ package Main;
 
 import Controler.LoginControler;
 import Controler.UserControler;
+import Model.EncryptPassword;
 import Model.User;
 import Viewer.LoginUI;
 import javax.swing.UIManager;
@@ -30,7 +31,7 @@ public class CastlePeopleMannagement {
                 }
             }
             
-            User admin = new User("admin","admin");
+            User admin = new User("admin",EncryptPassword.cryptWithMD5("admin"));
             UserControler userControler = new UserControler();
             userControler.addUser(admin);
             LoginControler login = new LoginControler(userControler,new LoginUI(userControler));
