@@ -672,8 +672,10 @@ public class MainMenuUI extends javax.swing.JFrame implements Serializable {
                     model.addColumn("Excursion");
                     model.addColumn("Nacionality");
                     model.addColumn("Povoa de Lanhoso");
+                JOptionPane.showMessageDialog(new JFrame(),"Pdf created with sucess.", "Dialog",
+                JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(new JFrame(),"Error: Report couldn't be generated!", "Dialog",
+                    JOptionPane.showMessageDialog(new JFrame(),"Error: Report couldn't be generated!" + "  " + ex, "Dialog",
                 JOptionPane.ERROR_MESSAGE);
                 }
                 

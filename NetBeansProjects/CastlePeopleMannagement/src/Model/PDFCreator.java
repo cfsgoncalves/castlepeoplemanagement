@@ -82,25 +82,25 @@ public class PDFCreator {
       addContability(contentStream,date,child,adult,student,aged);
       contentStream.close();
       //Create multiple files
-      File file = new File("Pdfs/" + data + ".pdf");
+      File file = new File("./Pdfs/" + data + ".pdf");
       if(file.exists()){
           while(file.exists()){
               acumulator++;
-              file = new File("Pdfs/" + data + "(" + acumulator + ")" + ".pdf");
+              file = new File("./Pdfs/" + data + "(" + acumulator + ")" + ".pdf");
           }
-          document.save("Pdfs/" + data + "(" + acumulator + ")" + ".pdf");
+          document.save("./Pdfs/" + data + "(" + acumulator + ")" + ".pdf");
       }else{
-        document.save("Pdfs/" + data + ".pdf");
+        document.save("./Pdfs/" + data + ".pdf");
       }
       document.close();
       System.out.println("PDF Created");
     } 
     
     private void beginPage(PDPageContentStream contentStream, String date) throws IOException{
-      PDImageXObject pdImage = PDImageXObject.createFromFile("/home/claudio/NetBeansProjects/"
-              + "NewFolder/CastleMannagement/NetBeansProjects/CastlePeopleMannagement"
-              + "/src/Images/brasao.jpg", document);
-      contentStream.drawImage(pdImage,560,740,50,50);
+      //PDImageXObject pdImage = PDImageXObject.createFromFile("/home/claudio/NetBeansProjects/"
+        //      + "NewFolder/CastleMannagement/NetBeansProjects/CastlePeopleMannagement"
+          //    + "/src/Images/brasao.jpg", document);
+      //contentStream.drawImage(pdImage,560,740,50,50);
       //Begin the Content stream 
       contentStream.beginText();
       //Setting the font to the Content stream  
@@ -183,10 +183,10 @@ public class PDFCreator {
     private void addContability(PDPageContentStream contentStream
             ,String date,int child,int adult,int student, int aged)
             throws IOException{
-        PDImageXObject pdImage = PDImageXObject.createFromFile("/home/claudio/NetBeansProjects/"
-              + "NewFolder/CastleMannagement/NetBeansProjects/CastlePeopleMannagement"
-              + "/src/Images/brasao.jpg", document);
-      contentStream.drawImage(pdImage,560,740,50,50);
+        //PDImageXObject pdImage = PDImageXObject.createFromFile("/home/claudio/NetBeansProjects/"
+          //    + "NewFolder/CastleMannagement/NetBeansProjects/CastlePeopleMannagement"
+            //  + "/src/Images/brasao.jpg", document);
+      //contentStream.drawImage(pdImage,560,740,50,50);
       //Begin the Content stream 
       contentStream.beginText();
       //Setting the font to the Content stream  

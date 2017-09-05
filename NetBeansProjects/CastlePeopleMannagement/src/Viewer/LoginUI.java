@@ -128,6 +128,7 @@ public class LoginUI extends javax.swing.JFrame {
                 userControler.setUserList(u);
             }
             userControler.validarUtilizador(jTextField1.getText(), jPasswordField1.getPassword(),this);
+            this.setVisible(false);
         } catch (Exception ex) {
             System.out.println(ex);
             //Palavra pass e/ou utilizador errados
